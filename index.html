@@ -8,6 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <style>
+        #film {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
+    
         /* Default styles for desktop */
         #header {
             display: flex;
@@ -47,7 +61,7 @@
         <div id="filter">
             <ul>
                 <li>
-                    <h3>Genres</h3>
+                    <h3>Movie Filter</h3>
                 </li>
                 <li>
                     <input type="checkbox" onclick="myGenre()">

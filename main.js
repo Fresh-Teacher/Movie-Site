@@ -1,3 +1,4 @@
+
 // Fetching JSON file
 fetch('movies.json')
     .then((response) => {
@@ -5,18 +6,17 @@ fetch('movies.json')
 
     })
     .then((data) => {
-       // List a Movies
-        let div1 = document.getElementById("film")
+        // List Movies
+        let div1 = document.getElementById("film");
         for (let i = 0; i < data.length; i++) {
-         
             let div2 = document.createElement("img");
             div2.id = `imag + ${i}`;
-            div2.src = `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${data[i].poster_path}`;
+            div2.src = data[i].poster_path; // Use the poster_path directly
             div2.width = 200;
             div2.height = 250;
             let div4 = document.createElement("div");
-            div4.id = "display"; 
-          
+            div4.id = "display";
+
             let re = document.createElement("p")
             let x = data[i].release_date;
             let y = parseInt(x)
@@ -32,7 +32,7 @@ fetch('movies.json')
                 Ge.innerHTML = m;
 
                 Ge.style.display = "none";
-              
+
                 div4.appendChild(Ge)
             }
             //More than 1 genres
@@ -48,65 +48,90 @@ fetch('movies.json')
 
                 }
             }
-            
+
             re.style.display = "none";
             div4.appendChild(re)
             div4.appendChild(div2)
-            
+
             div1.appendChild(div4)
-            // Information of each block
-            let info = document.createElement("div");
-           
-            info.id = "inf";
-            info.style.width = 200;
-           
-            let title = document.createElement("h4")
-            title.innerHTML = data[i].title;
-            let date = document.createElement("p")
-            date.innerHTML = `Release Date:${data[i].release_date}`;
-            
-            //Calculate time duration of movie
-            let num = data[i].runtime;
-            let hours = (num / 60);
-            let rhours = Math.floor(hours);
-            let minutes = (hours - rhours) * 60;
-            let rminutes = Math.round(minutes);
-            let time = document.createElement("p")
-            time.innerHTML = `Duration- ${rhours} hr ${rminutes} min`;
+// Information of each block
+let info = document.createElement("div");
+info.id = "inf";
+info.style.width = 200;
 
-            info.appendChild(title);
-            info.appendChild(date)
-            info.appendChild(time)
+let title = document.createElement("h4");
+title.innerHTML = data[i].title;
+let date = document.createElement("p");
+date.innerHTML = `Release Date: ${data[i].release_date}`;
 
-            
-            div4.appendChild(info);
-           // Detailed Information of block
+// Check if "runtime" is available
+if (data[i].runtime !== undefined) {
+  // Calculate time duration of the movie
+  let num = data[i].runtime;
+  let hours = Math.floor(num / 60);
+  let minutes = num % 60;
+  let time = document.createElement("p");
+  time.innerHTML = `Duration: ${hours} hr ${minutes} min`;
+  info.appendChild(time);
+}
+
+info.appendChild(title);
+info.appendChild(date);
+
+
+  
+  // Hide the "Duration" section if "runtime" is undefined
+  let duration = info.querySelector("p:first-of-type");
+  if (!duration) {
+    info.style.display = "none";
+  }
+  
+  
+  div4.appendChild(info);
+  
+            // Detailed Information of block
             div4.addEventListener('click', onPopUp = (e) => {
                 let popup = document.createElement("dialog");
                 popup.id = "pop";
                 let div3 = document.createElement("div");
                 let imga = document.createElement('img');
                 let description = document.createElement("p");
-                let title = document.createElement("h3")
-                let imd = document.createElement("div")
-                imd.id = "imd";
-                imd.textContent =  `${data[i].vote_average} / 10`;
+                let title = document.createElement("h3");
+                let imd = document.createElement("div");
                 imga.id = "popupimg";
-                imga.src = `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${data[i].poster_path}`;
+                imga.src = data[i].poster_path; // Use the original image URL directly
                 imga.height = 150;
                 imga.width = 100;
                 description.style.color = "white";
                 description.innerHTML = `${data[i].overview}`;
-                title.style.color = "white"
+                title.style.color = "white";
                 title.innerHTML = data[i].title;
-                let butto = document.createElement("div")
-                butto.id = "button"
-                let d = data[i].genres
-                let c = data[i].genres.length
+                let butto = document.createElement("div");
+                butto.id = "button";
+                let d = data[i].genres;
+                let c = data[i].genres.length;
                 let t = Array.isArray(d);
-                
 
-               // Ok button at information block
+// Cast names in detailed information block
+let castDiv = document.createElement("div");
+const cast = data[i].cast;
+
+if (Array.isArray(cast) && cast.length > 0 && typeof cast[0] === "string") {
+  // For array of strings format (hide this cast)
+  castDiv.style.display = "none";
+} else if (Array.isArray(cast) && cast.length > 0 && typeof cast[0] === "object") {
+  // For array of objects format (show this cast)
+  castDiv.innerHTML = "Cast: " + cast.map(member => member.name).join(", ");
+} else {
+  // If cast is not available
+  castDiv.innerHTML = "Cast: N/A";
+}
+
+div3.appendChild(castDiv);
+
+
+
+                // Ok button at information block
                 butto.textContent = "Exit"
                 butto.addEventListener("click", onremove = (e) => {
                     popup.remove();
@@ -116,30 +141,55 @@ fetch('movies.json')
                 popup.appendChild(title)
                 popup.appendChild(description)
                 let divition = document.createElement("p");
-               // for CAST and geners at information block
-                let w = document.createElement("div");
-                w.id = "w"
-                let o = document.createElement("h4");
-                o.innerHTML = "CAST";
-                w.appendChild(o)
-                let k = data[i].cast
-                let m = k.length
-                for (let i = 0; i < m; i++) {
-                   
-                    let wiriter = document.createElement("div")
-                    let p = k[i].name
-                    wiriter.textContent = p
-                   
-                    wiriter.id = "cast"
-                    wiriter.style.background = "blue";
-                    w.appendChild(wiriter);
+                
+// for CAST and genres at information block
+let w = document.createElement("div");
+w.id = "w";
 
-                }
+// Cast section
+let castTitle = document.createElement("h4");
+castTitle.innerHTML = "CAST";
+w.appendChild(castTitle);
+
+let castArray = data[i].cast;
+if (Array.isArray(castArray) && castArray.length > 0 && typeof castArray[0] === "string") {
+  // If cast is available as an array of strings, show the cast section
+  for (let j = 0; j < castArray.length; j++) {
+    let castMember = document.createElement("div");
+    castMember.id = "cast";
+    castMember.textContent = castArray[j];
+    castMember.style.background = "blue";
+    w.appendChild(castMember);
+  }
+} else {
+  // If cast is not available or not in the expected format, hide the cast section
+  w.style.display = "none";
+}
+
+// Genres section
+let genreTitle = document.createElement("h4");
+genreTitle.innerHTML = "GENRES";
+w.appendChild(genreTitle);
+
+let genres = data[i].genres;
+if (Array.isArray(genres) && genres.length > 0) {
+  for (let j = 0; j < genres.length; j++) {
+    let genre = document.createElement("div");
+    genre.id = "geners";
+    genre.textContent = genres[j];
+    genre.style.color = "white";
+    genre.style.background = "orange";
+    w.appendChild(genre);
+  }
+}
+
+div3.appendChild(w);
+
                 let type = document.createElement("p")
                 let name = document.createElement("h3")
                 name.innerHTML = "GENRE"
                 type.appendChild(name)
-              
+
                 popup.appendChild(w)
                 if (t == false) {
                     m = d;
@@ -148,7 +198,7 @@ fetch('movies.json')
                     Genre.textContent = m;
                     Genre.style.color = "white";
                     Genre.style.background = "orange";
-                  
+
                     type.appendChild(Genre)
                 }
 
@@ -172,18 +222,18 @@ fetch('movies.json')
                 document.getElementsByTagName("body")[0].appendChild(popup);
 
                 popup.showModal();
-                
+
             })
             // Hover process in block
             div4.addEventListener('mouseover', onHover = (e) => {
                 document.getElementById(`imag ${i}`).style.opacity = "0.5";
-                
+
             })
             div4.addEventListener('mouseout', onhoverof = (e) => {
                 document.getElementById('imag ${i}').style.opacity = "1";
-              
+
             })
-           
+
 
         }
 
@@ -191,7 +241,7 @@ fetch('movies.json')
 
         //Pagination
         const fil = document.querySelector("#film").children;
-          
+
         const prev = document.querySelector(".prev")
         const pages = document.querySelector(".page")
         const next = document.querySelector(".next")
@@ -199,7 +249,7 @@ fetch('movies.json')
         let index = 1;
         const g = true;
         const pagination = Math.ceil(fil.length / maxitem);
-        
+
         prev.addEventListener("click", function () {
             index--;
             check();
@@ -237,7 +287,7 @@ fetch('movies.json')
                     fil[p].classList.add("show");
                 }
             }
-            pages.innerHTML =index + "/" + pagination;
+            pages.innerHTML = index + "/" + pagination;
         }
 
         showitem();
@@ -249,11 +299,11 @@ fetch('movies.json')
 
 
 // Filters
- let myFunction = () => {
+let myFunction = () => {
     let input = document.getElementById('year').value
     let newinput = parseInt(input);
     const fil = document.querySelector("#film").children;
-   
+
 
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
@@ -271,11 +321,11 @@ fetch('movies.json')
 
     }
 }
- let myGenre = ()  => {
+let myGenre = () => {
     let input = "Fantasy";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-    
+
 
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
@@ -299,7 +349,7 @@ let science = () => {
     let input = "Science Fiction";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-    
+
 
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
@@ -318,11 +368,11 @@ let science = () => {
     }
 }
 
- let historical = () => {
+let historical = () => {
     let input = "History";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-    
+
 
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
@@ -342,11 +392,11 @@ let science = () => {
 }
 
 
- let horror  = () => {
+let horror = () => {
     let input = "Horror";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-    
+
 
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
@@ -367,11 +417,11 @@ let science = () => {
 
 
 
- let romance = () => {
+let romance = () => {
     let input = "Romance";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-    
+
 
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
@@ -392,11 +442,11 @@ let science = () => {
 
 
 
- let thriller = () => {
+let thriller = () => {
     let input = "Thriller";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-   
+
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
         fil[j].classList.add("hide");
@@ -415,11 +465,11 @@ let science = () => {
 }
 
 
- let comedy = () => {
+let comedy = () => {
     let input = "Comedy";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-    
+
 
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
@@ -439,11 +489,11 @@ let science = () => {
 }
 
 
- let crime = () => {
+let crime = () => {
     let input = "Crime";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-   
+
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
         fil[j].classList.add("hide");
@@ -462,11 +512,11 @@ let science = () => {
 }
 
 
- let family = () => {
+let family = () => {
     let input = "Family";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-    
+
 
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
@@ -486,11 +536,11 @@ let science = () => {
 }
 
 
- let animation = () => {
+let animation = () => {
     let input = "Animation";
     let newinput = input;
     const fil = document.querySelector("#film").children;
-    
+
 
     for (j = 0; j < fil.length; j++) {
         fil[j].classList.remove("show");
