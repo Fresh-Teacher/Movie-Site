@@ -96,7 +96,7 @@ fetch('movies.json')
                 imga.height = 150;
                 imga.width = 100;
                 description.style.color = "white";
-                description.innerHTML = `overview:- ${data[i].overview}`;
+                description.innerHTML = ` ${data[i].overview}`;
                 title.style.color = "white"
                 title.innerHTML = data[i].title;
                 let butto = document.createElement("div")
@@ -107,7 +107,7 @@ fetch('movies.json')
                 
 
                // Ok button at information block
-                butto.textContent = "ok"
+                butto.textContent = "❌"
                 butto.addEventListener("click", onremove = (e) => {
                     popup.remove();
                 })
@@ -120,7 +120,7 @@ fetch('movies.json')
                 let w = document.createElement("div");
                 w.id = "w"
                 let o = document.createElement("h4");
-                o.innerHTML = "cast";
+                o.innerHTML = "CAST";
                 w.appendChild(o)
                 let k = data[i].cast
                 let m = k.length
@@ -137,7 +137,7 @@ fetch('movies.json')
                 }
                 let type = document.createElement("p")
                 let name = document.createElement("h3")
-                name.innerHTML = "Gener"
+                name.innerHTML = "GENRE"
                 type.appendChild(name)
               
                 popup.appendChild(w)
