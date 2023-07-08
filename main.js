@@ -63,7 +63,7 @@ fetch('movies.json')
             let title = document.createElement("h4")
             title.innerHTML = data[i].title;
             let date = document.createElement("p")
-            date.innerHTML = `release date:${data[i].release_date}`;
+            date.innerHTML = `Release Date:${data[i].release_date}`;
             
             //Calculate time duration of movie
             let num = data[i].runtime;
@@ -96,7 +96,7 @@ fetch('movies.json')
                 imga.height = 150;
                 imga.width = 100;
                 description.style.color = "white";
-                description.innerHTML = ` ${data[i].overview}`;
+                description.innerHTML = `${data[i].overview}`;
                 title.style.color = "white"
                 title.innerHTML = data[i].title;
                 let butto = document.createElement("div")
@@ -107,7 +107,7 @@ fetch('movies.json')
                 
 
                // Ok button at information block
-                butto.textContent = "❌"
+                butto.textContent = "Exit"
                 butto.addEventListener("click", onremove = (e) => {
                     popup.remove();
                 })
@@ -116,7 +116,7 @@ fetch('movies.json')
                 popup.appendChild(title)
                 popup.appendChild(description)
                 let divition = document.createElement("p");
-               // for cast and geners at information block
+               // for CAST and geners at information block
                 let w = document.createElement("div");
                 w.id = "w"
                 let o = document.createElement("h4");

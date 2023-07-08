@@ -6,6 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .dropdown-dialog {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .dropdown-dialog {
+                display: block;
+            }
+
+            .dropdown-dialog ~ ul {
+                display: none;
+            }
+        }
+    </style>
     <title>Document</title>
 </head>
 
@@ -16,59 +31,96 @@
 
     </header>
     <section>
-
         <div id="filter">
             <ul>
                 <li>
                     <h3>Genres</h3>
                 </li>
-                <li><input type="checkbox" onclick="myGenre()">
+                <li class="dropdown-dialog">
+                    <select onchange="myGenre()">
+                        <option value="">Select Genre</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="science">Science Fiction</option>
+                        <option value="historical">Historical</option>
+                        <option value="horror">Horror</option>
+                        <option value="romance">Romance</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="crime">Crime</option>
+                        <option value="family">Family</option>
+                        <option value="animation">Animation</option>
+                    </select>
+                </li>
+                <li>
+                    <input type="checkbox" onclick="myGenre()">
                     <label>fantasy</label>
                 </li>
-                <li><input type="checkbox" onclick="science()">
+                <li>
+                    <input type="checkbox" onclick="science()">
                     <label>Science Fiction</label>
                 </li>
-                <li><input type="checkbox" onclick="historical()">
-                    <label>Historical </label>
+                <li>
+                    <input type="checkbox" onclick="historical()">
+                    <label>Historical</label>
                 </li>
-                <li><input type="checkbox" onclick="horror()">
+                <li>
+                    <input type="checkbox" onclick="horror()">
                     <label>Horror</label>
                 </li>
-                <li><input type="checkbox" onclick="romance()">
-                    <label>Romance </label>
+                <li>
+                    <input type="checkbox" onclick="romance()">
+                    <label>Romance</label>
                 </li>
-                <li><input type="checkbox" onclick="thriller()">
+                <li>
+                    <input type="checkbox" onclick="thriller()">
                     <label>Thriller</label>
                 </li>
-                <li><input type="checkbox" onclick="comedy()">
+                <li>
+                    <input type="checkbox" onclick="comedy()">
                     <label>Comedy</label>
                 </li>
-                <li><input type="checkbox" onclick="crime()">
+                <li>
+                    <input type="checkbox" onclick="crime()">
                     <label>crime</label>
                 </li>
-                <li><input type="checkbox" onclick="family()">
+                <li>
+                    <input type="checkbox" onclick="family()">
                     <label>Family</label>
                 </li>
-                <li><input type="checkbox" onclick="myGenre()">
+                <li>
+                    <input type="checkbox" onclick="myGenre()">
                     <label>Animation</label>
                 </li>
             </ul>
-
         </div>
-
         <div id="film" class="filmdisplay">
-
         </div>
-
     </section>
     <section class="pageni">
         <div class="prev">prev</div>
         <div class="page">page</div>
         <div class="next">next</div>
     </section>
-    <script src="main.js">  </script>
+    <script src="main.js"></script>
+    <script>
+        function toggleFilter() {
+            const filterDiv = document.getElementById('filter');
+            const dialogDiv = filterDiv.querySelector('.dropdown-dialog');
+            const ul = filterDiv.querySelector('ul');
+            const select = dialogDiv.querySelector('select');
 
+            if (window.innerWidth <= 600) {
+                ul.style.display = 'none';
+                dialogDiv.style.display = 'block';
+            } else {
+                ul.style.display = 'block';
+                dialogDiv.style.display = 'none';
+            }
+        }
 
+        window.addEventListener('resize', toggleFilter);
+        toggleFilter();
+    </script>
 </body>
 
 </html>
