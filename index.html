@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header id="header">
+        <h1>Movies To watch</h1>
+        <input id="year" type="text" placeholder="type the year of release" onkeyup="myFunction()">
+
+    </header>
+    <section>
+
+        <div id="filter">
+            <ul>
+                <li>
+                    <h3>Genres</h3>
+                </li>
+                <li><input type="checkbox" onclick="myGenre()">
+                    <label>fantasy</label>
+                </li>
+                <li><input type="checkbox" onclick="science()">
+                    <label>Science Fiction</label>
+                </li>
+                <li><input type="checkbox" onclick="historical()">
+                    <label>Historical </label>
+                </li>
+                <li><input type="checkbox" onclick="horror()">
+                    <label>Horror</label>
+                </li>
+                <li><input type="checkbox" onclick="romance()">
+                    <label>Romance </label>
+                </li>
+                <li><input type="checkbox" onclick="thriller()">
+                    <label>Thriller</label>
+                </li>
+                <li><input type="checkbox" onclick="comedy()">
+                    <label>Comedy</label>
+                </li>
+                <li><input type="checkbox" onclick="crime()">
+                    <label>crime</label>
+                </li>
+                <li><input type="checkbox" onclick="family()">
+                    <label>Family</label>
+                </li>
+                <li><input type="checkbox" onclick="myGenre()">
+                    <label>Animation</label>
+                </li>
+            </ul>
+
+        </div>
+
+        <div id="film" class="filmdisplay">
+
+        </div>
+
+    </section>
+    <section class="pageni">
+        <div class="prev">prev</div>
+        <div class="page">page</div>
+        <div class="next">next</div>
+    </section>
+    <script src="main.js">  </script>
+
+
+</body>
+
+</html>
