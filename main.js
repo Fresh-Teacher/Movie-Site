@@ -11,14 +11,14 @@ fetch('movies.json')
         for (let i = 0; i < data.length; i++) {
             let div2 = document.createElement("img");
             div2.id = `imag + ${i}`;
-            div2.src = data[i].poster_path; // Use the poster_path directly
+            div2.src = data[i].thumbnail; // Use the thumbnail directly
             div2.width = 200;
             div2.height = 250;
             let div4 = document.createElement("div");
             div4.id = "display";
 
             let re = document.createElement("p")
-            let x = data[i].release_date;
+            let x = data[i].year;
             let y = parseInt(x)
             const d = data[i].genres
             const c = data[i].genres.length
@@ -62,7 +62,7 @@ info.style.width = 200;
 let title = document.createElement("h4");
 title.innerHTML = data[i].title;
 let date = document.createElement("p");
-date.innerHTML = `Release Date: ${data[i].release_date}`;
+date.innerHTML = `Release Date: ${data[i].year}`;
 
 // Check if "runtime" is available
 if (data[i].runtime !== undefined) {
@@ -99,7 +99,7 @@ info.appendChild(date);
                 let title = document.createElement("h3");
                 let imd = document.createElement("div");
                 imga.id = "popupimg";
-                imga.src = data[i].poster_path; // Use the original image URL directly
+                imga.src = data[i].thumbnail; // Use the original image URL directly
                 imga.height = 150;
                 imga.width = 100;
                 description.style.color = "white";
