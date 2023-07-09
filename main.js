@@ -187,7 +187,7 @@ div3.appendChild(w);
 
                 let type = document.createElement("p")
                 let name = document.createElement("h3")
-                name.innerHTML = "GENRE"
+                
                 type.appendChild(name)
 
                 popup.appendChild(w)
