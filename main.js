@@ -245,7 +245,7 @@ div3.appendChild(w);
         const prev = document.querySelector(".prev")
         const pages = document.querySelector(".page")
         const next = document.querySelector(".next")
-        const maxitem = 50;
+        const maxitem = 21;
         let index = 1;
         const g = true;
         const pagination = Math.ceil(fil.length / maxitem);
@@ -558,4 +558,3 @@ let animation = () => {
 
     }
 }
-
