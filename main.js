@@ -321,29 +321,36 @@ if (Array.isArray(castArray) && castArray.length > 0 && typeof castArray[0] === 
     });
 
 
-// Filters
-let myFunction = () => {
-    let input = document.getElementById('year').value
-    let newinput = parseInt(input);
-    const fil = document.querySelector("#film").children;
-
-
-    for (j = 0; j < fil.length; j++) {
-        fil[j].classList.remove("show");
-        fil[j].classList.add("hide");
-
-        if (!fil[j].innerHTML.includes(newinput)) {
-            fil[j].classList.remove("show");
-            fil[j].classList.add("hide");
-        }
-
-        else {
+    let myFunction = () => {
+        const yearInput = document.getElementById('year').value.toLowerCase();
+        const castInput = document.getElementById('cast').value.toLowerCase();
+        const titleInput = document.getElementById('title').value.toLowerCase();
+        const genreInput = document.getElementById('genre').value.toLowerCase();
+      
+        const fil = document.querySelector("#film").children;
+      
+        for (let j = 0; j < fil.length; j++) {
+          fil[j].classList.remove("show");
+          fil[j].classList.add("hide");
+      
+          const movieYear = parseInt(fil[j].querySelector(".movie-year").textContent);
+          const movieCast = fil[j].querySelector(".movie-cast").textContent.toLowerCase();
+          const movieTitle = fil[j].querySelector(".movie-title").textContent.toLowerCase();
+          const movieGenres = fil[j].querySelectorAll(".movie-genre");
+          const movieGenreArray = Array.from(movieGenres).map(genre => genre.textContent.toLowerCase());
+      
+          if (
+            (isNaN(yearInput) || movieYear === parseInt(yearInput)) &&
+            (castInput === "" || movieCast.includes(castInput)) &&
+            (titleInput === "" || movieTitle.includes(titleInput)) &&
+            (genreInput === "" || movieGenreArray.includes(genreInput))
+          ) {
             fil[j].classList.remove("hide");
             fil[j].classList.add("show");
+          }
         }
-
-    }
-}
+      }
+      
 let myGenre = () => {
     let input = "Fantasy";
     let newinput = input;
