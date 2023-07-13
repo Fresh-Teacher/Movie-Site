@@ -89,28 +89,44 @@ info.appendChild(date);
   
   div4.appendChild(info);
   
-            // Detailed Information of block
-            div4.addEventListener('click', onPopUp = (e) => {
-                let popup = document.createElement("dialog");
-                popup.id = "pop";
-                let div3 = document.createElement("div");
-                let imga = document.createElement('img');
-                let description = document.createElement("p");
-                let title = document.createElement("h3");
-                let imd = document.createElement("div");
-                imga.id = "popupimg";
-                imga.src = data[i].thumbnail; // Use the original image URL directly
-                imga.height = 150;
-                imga.width = 100;
-                description.style.color = "white";
-                description.innerHTML = `${data[i].overview}`;
-                title.style.color = "white";
-                title.innerHTML = data[i].title;
-                let butto = document.createElement("div");
-                butto.id = "button";
-                let d = data[i].genres;
-                let c = data[i].genres.length;
-                let t = Array.isArray(d);
+  // Detailed Information of block
+  div4.addEventListener('click', onPopUp = (e) => {
+      let popup = document.createElement("dialog");
+      popup.id = "pop";
+      let div3 = document.createElement("div");
+      let imga = document.createElement('img');
+      let description = document.createElement("p");
+      let title = document.createElement("h3");
+      let imd = document.createElement("div");
+      imga.id = "popupimg";
+      imga.src = data[i].thumbnail; // Use the original image URL directly
+      imga.height = 150;
+      imga.width = 100;
+      description.style.color = "white";
+      description.innerHTML = `${data[i].overview}`;
+      title.style.color = "white";
+      title.innerHTML = data[i].title;
+      let butto = document.createElement("div");
+      butto.id = "button";
+      let d = data[i].genres;
+      let c = data[i].genres.length;
+      let t = Array.isArray(d);
+
+    // Create the video element but hide it initially
+    let video = document.createElement("video");
+    video.src = data[i].href;
+    video.controls = true; // Show the player controls
+    video.style.width = "100%"; // Adjust the video width as needed
+    video.style.display = "none";
+    div3.appendChild(video);
+
+        // Watch Movie button
+        let watchButton = document.createElement("button");
+        watchButton.textContent = "Watch Movie";
+        watchButton.addEventListener("click", () => {
+          video.style.display = "block"; // Show the video when the button is clicked
+        });
+        div3.appendChild(watchButton);
 
 // Cast names in detailed information block
 let castDiv = document.createElement("div");
@@ -166,24 +182,31 @@ if (Array.isArray(castArray) && castArray.length > 0 && typeof castArray[0] === 
   w.style.display = "none";
 }
 
-// Genres section
-let genreTitle = document.createElement("h4");
-genreTitle.innerHTML = "GENRES";
-w.appendChild(genreTitle);
+    // Genres section
+    let genreTitle = document.createElement("h4");
+    genreTitle.innerHTML = "GENRES";
+    w.appendChild(genreTitle);
 
-let genres = data[i].genres;
-if (Array.isArray(genres) && genres.length > 0) {
-  for (let j = 0; j < genres.length; j++) {
-    let genre = document.createElement("div");
-    genre.id = "geners";
-    genre.textContent = genres[j];
-    genre.style.color = "white";
-    genre.style.background = "orange";
-    w.appendChild(genre);
-  }
-}
+    let genres = data[i].genres;
+    if (Array.isArray(genres) && genres.length > 0) {
+      for (let j = 0; j < genres.length; j++) {
+        let genre = document.createElement("div");
+        genre.id = "geners";
+        genre.textContent = genres[j];
+        genre.style.color = "white";
+        genre.style.background = "orange";
+        w.appendChild(genre);
+      }
+    }
 
-div3.appendChild(w);
+
+    // Download Movie button
+    let downloadButton = document.createElement("button");
+    downloadButton.textContent = "Download Movie";
+    downloadButton.addEventListener("click", () => {
+      window.location.href = data[i].href;
+    });
+    div3.appendChild(downloadButton);
 
                 let type = document.createElement("p")
                 let name = document.createElement("h3")
