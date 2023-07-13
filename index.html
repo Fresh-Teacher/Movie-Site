@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,18 +8,18 @@
     <link rel="stylesheet" href="style.css">
     <style>
         #film {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-    .hide {
-        display: none;
-    }
+        .hide {
+            display: none;
+        }
 
-    .show {
-        display: block;
-    }
+        .show {
+            display: block;
+        }
 
         /* Default styles for desktop */
         #header {
@@ -39,8 +38,8 @@
             margin-top: 0.00000001px;
         }
 
-  /* Styles for mobile */
-  @media (max-width: 767px) {
+        /* Styles for mobile */
+        @media (max-width: 767px) {
             #filter {
                 /* Adjust the styles to fit smaller screens */
                 width: 100%;
@@ -56,6 +55,9 @@
     <header id="header">
         <h1>Fresh Movies</h1>
         <input id="year" type="text" placeholder="Search by year (2020-2023)" onkeyup="myFunction()">
+        <input id="cast" type="text" placeholder="Search by cast" onkeyup="myFunction()">
+        <input id="title" type="text" placeholder="Search by title" onkeyup="myFunction()">
+        <input id="genre" type="text" placeholder="Search by genre" onkeyup="myFunction()">
     </header>
     <section>
         <div id="filter">
@@ -67,42 +69,7 @@
                     <input type="checkbox" onclick="myGenre()">
                     <label>Fantasy</label>
                 </li>
-                <li>
-                    <input type="checkbox" onclick="science()">
-                    <label>Science Fiction</label>
-                </li>
-                <li>
-                    <input type="checkbox" onclick="historical()">
-                    <label>Historical</label>
-                </li>
-                <li>
-                    <input type="checkbox" onclick="horror()">
-                    <label>Horror</label>
-                </li>
-                <li>
-                    <input type="checkbox" onclick="romance()">
-                    <label>Romance</label>
-                </li>
-                <li>
-                    <input type="checkbox" onclick="thriller()">
-                    <label>Thriller</label>
-                </li>
-                <li>
-                    <input type="checkbox" onclick="comedy()">
-                    <label>Comedy</label>
-                </li>
-                <li>
-                    <input type="checkbox" onclick="crime()">
-                    <label>Crime</label>
-                </li>
-                <li>
-                    <input type="checkbox" onclick="family()">
-                    <label>Family</label>
-                </li>
-                <li>
-                    <input type="checkbox" onclick="myGenre()">
-                    <label>Animation</label>
-                </li>
+                <!-- Other filter options -->
             </ul>
         </div>
         <div id="film" class="filmdisplay"></div>
