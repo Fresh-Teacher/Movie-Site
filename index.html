@@ -37,8 +37,14 @@
         #filter {
             /* Your existing styles */
             margin-top: 0.00000001px;
+            color: black; /* Set the text color to black */
         }
 
+        /* Add this CSS rule to change the pointer to a hand on hover */
+        .container #filter label:hover {
+  cursor: pointer;
+  color: black;
+}
         /* Styles for mobile */
         @media (max-width: 767px) {
             #filter {

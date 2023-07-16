@@ -11,6 +11,18 @@ img{
     
     
 }
+
+#filter {
+    /* Your existing styles */
+    margin-top: 0.00000001px;
+    color: black; /* Set the text color to black */
+  }
+  
+  /* Add this CSS rule to change the pointer to a hand on hover */
+  #filter label:hover {
+    cursor: pointer;
+  }
+  
 *{
     box-sizing: border-box;
 }

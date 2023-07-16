@@ -4,81 +4,42 @@ fetch('movies.json')
     return response.json();
   })
   .then((data) => {
-    // List Movies
-    let div1 = document.getElementById("film");
-    for (let i = 0; i < data.length; i++) {
-      let div2 = document.createElement("img");
-      div2.id = `imag${i}`;
-      div2.src = data[i].thumbnail;
-      div2.width = 200;
-      div2.height = 250;
-      let div4 = document.createElement("div");
-      div4.classList.add("display");
 
-      let re = document.createElement("p");
-      let x = data[i].year;
-      let y = parseInt(x);
-      const d = data[i].genres;
-      const c = data[i].genres.length;
-      const t = Array.isArray(d);
-      re.innerHTML = y;
+// List Movies
+let div1 = document.getElementById("film");
+for (let i = 0; i < data.length; i++) {
+  let div2 = document.createElement("img");
+  div2.id = `imag${i}`;
+  div2.src = data[i].thumbnail;
+  div2.width = 200;
+  div2.height = 250;
+  let div4 = document.createElement("div");
+  div4.classList.add("display", "col-md-4");
 
-      if (t == false) {
-        m = d;
-        let Ge = document.createElement("p");
-        Ge.classList.add("genres");
-        Ge.innerHTML = m;
-        Ge.style.display = "none";
-        div4.appendChild(Ge);
-      } else {
-        for (let j = 0; j < c; j++) {
-          let m = d[j];
-          let Ge = document.createElement("div");
-          Ge.classList.add("genres");
-          Ge.innerHTML = m;
-          Ge.style.display = "none";
-          div4.appendChild(Ge);
-        }
-      }
+  let re = document.createElement("p");
+  let d = data[i].genres;
+  re.innerHTML = d.join(", "); // Display genres instead of release date
 
-      re.style.display = "none";
-      div4.appendChild(re);
-      div4.appendChild(div2);
-      div1.appendChild(div4);
+  div4.appendChild(re);
+  div4.appendChild(div2);
+  div1.appendChild(div4);
 
-      // Information of each block
-      let info = document.createElement("div");
-      info.classList.add("inf");
-      info.style.width = "200px";
+ // Information of each block
+let info = document.createElement("div");
+info.classList.add("inf");
+info.style.width = "200px";
 
-      let title = document.createElement("h4");
-      title.classList.add("movie-title");
-      title.innerHTML = data[i].title;
-      let date = document.createElement("p");
-      date.classList.add("movie-year");
-      date.innerHTML = `Release Date: ${data[i].year}`;
+let title = document.createElement("h4");
+title.classList.add("movie-title");
+title.innerHTML = data[i].title;
 
-      if (data[i].runtime !== undefined) {
-        let num = data[i].runtime;
-        let hours = Math.floor(num / 60);
-        let minutes = num % 60;
-        let time = document.createElement("p");
-        time.innerHTML = `Duration: ${hours} hr ${minutes} min`;
-        info.appendChild(time);
-      }
+info.appendChild(title);
 
-      info.appendChild(title);
-      info.appendChild(date);
+div4.appendChild(info);
 
-      let duration = info.querySelector("p:first-of-type");
-      if (!duration) {
-        info.style.display = "none";
-      }
 
-      div4.appendChild(info);
-
-// Detailed Information of block
-div4.addEventListener("click", () => {
+  // Detailed Information of block
+  div4.addEventListener("click", () => {
     let popup = document.createElement("dialog");
     popup.id = "pop";
     let div3 = document.createElement("div");
