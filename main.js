@@ -115,7 +115,7 @@ fetch('movies.json')
           watchUntranslatedButton.textContent = "Watch Untranslated Movie ▷";
           watchUntranslatedButton.classList.add("btn", "btn-secondary");
           watchUntranslatedButton.addEventListener("click", () => {
-            window.location.href = "https://www.soaps.vercel.app";
+            window.location.href = "https://soaps.vercel.app";
           });
           buttonsContainer.appendChild(watchUntranslatedButton);
         } else {
