@@ -30,21 +30,17 @@
             padding: 10px;
         }
 
-        #header input {
-            margin-right: 10px;
+        .logo img {
+            width: 40px; /* Adjust the width as needed */
+            height: auto; /* Preserve the aspect ratio */
+            margin-right: 10px; /* Add spacing between the logo and the title */
         }
 
-        #filter {
-            /* Your existing styles */
-            margin-top: 0.00000001px;
-            color: black; /* Set the text color to black */
+        .header-title {
+            font-size: 18px; /* Adjust the font size as needed */
+            color: white;
         }
 
-        /* Add this CSS rule to change the pointer to a hand on hover */
-        .container #filter label:hover {
-  cursor: pointer;
-  color: black;
-}
         /* Styles for mobile */
         @media (max-width: 767px) {
             #filter {
@@ -60,57 +56,12 @@
 
 <body>
     <header id="header">
-        <h1>Fresh Movies</h1>
-        <input id="year" type="text" placeholder="Search by year (2020-2023)" onkeyup="myFunction()">
+        <div class="logo">
+   <h1 class="header-title">FRESH  TEACHER'S  VIDE▶️ LIBRARY</h1>
+        </div>
+        
     </header>
     <section>
-        <div id="filter" class="container">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <h3>Movie Filter</h3>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Fantasy')">
-                    <label>Fantasy</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Science Fiction')">
-                    <label>Science Fiction</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Historical')">
-                    <label>Historical</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Horror')">
-                    <label>Horror</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Romance')">
-                    <label>Romance</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Thriller')">
-                    <label>Thriller</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Comedy')">
-                    <label>Comedy</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Crime')">
-                    <label>Crime</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Family')">
-                    <label>Family</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="checkbox" onclick="myGenre('Animation')">
-                    <label>Animation</label>
-                </li>
-            </ul>
-        </div>
         <div id="film" class="container filmdisplay"></div>
     </section>
     <section class="pageni container">
@@ -121,6 +72,6 @@
     <!-- Add Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="main.js"></script>
-  </body>
-  
-  </html>
+</body>
+
+</html>
