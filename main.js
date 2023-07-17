@@ -1,55 +1,53 @@
 fetch('movies.json')
-  .then((response) => {
+.then((response) => {
     return response.json();
-  })
-  .then((data) => {
+})
+.then((data) => {
     let div1 = document.getElementById("film");
-    let genresSet = new Set();
 
     for (let i = data.length - 1; i >= 0; i--) {
-      let div4 = document.createElement("div");
-      div4.classList.add("display", "col-md-4");
+        let div4 = document.createElement("div");
+        div4.classList.add("display", "col-md-4");
 
-      let div2 = document.createElement("img");
-      div2.id = `imag${i}`;
-      div2.src = data[i].thumbnail;
-      div2.width = 200;
-      div2.height = 250;
+        let div2 = document.createElement("img");
+        div2.id = `imag${i}`;
+        div2.src = data[i].thumbnail;
+        div2.width = 200;
+        div2.height = 250;
 
-      div4.appendChild(div2);
+        div4.appendChild(div2);
 
-      let info = document.createElement("div");
-      info.classList.add("inf");
-      info.style.width = "200px";
+        let info = document.createElement("div");
+        info.classList.add("inf");
+        info.style.width = "200px";
 
-      let title = document.createElement("h4");
-      title.classList.add("movie-title");
-      title.innerHTML = data[i].title;
+        let title = document.createElement("h4");
+        title.classList.add("movie-title");
+        title.innerHTML = data[i].title;
 
-      info.appendChild(title);
-      div4.appendChild(info);
+        info.appendChild(title);
+        div4.appendChild(info);
 
-      let genreDiv = document.createElement("div");
-      genreDiv.classList.add("movie-genre");
-      let genres = document.createElement("p");
-      genres.innerHTML = ` ${data[i].genres.join(", ")}`;
-      genreDiv.appendChild(genres);
+        let statusDiv = document.createElement("div");
+        statusDiv.classList.add("movie-status");
 
-      div4.appendChild(genreDiv);
-      div1.prepend(div4);
+        // Check if movie is translated or untranslated
+        if (!data[i].href || !data[i].href.endsWith(".mp4")) {
+            statusDiv.innerHTML = "Untranslated";
+        } else {
+            statusDiv.innerHTML = "Translated";
+        }
 
-      // Add genres to the set
-      data[i].genres.forEach(genre => {
-        genresSet.add(genre);
-      });
+        div4.appendChild(statusDiv);
+        div1.prepend(div4);
 
-      div4.addEventListener('mouseover', () => {
-        div2.style.opacity = "0.5";
-      });
+        div4.addEventListener('mouseover', () => {
+            div2.style.opacity = "0.5";
+        });
 
-      div4.addEventListener('mouseout', () => {
-        div2.style.opacity = "1";
-      });
+        div4.addEventListener('mouseout', () => {
+            div2.style.opacity = "1";
+        });
 
       div4.addEventListener("click", () => {
         let popup = document.createElement("dialog");
@@ -158,6 +156,7 @@ fetch('movies.json')
       });
     }
 
+    
     // Pagination
     const fil = document.querySelector("#film").children;
 
