@@ -260,23 +260,6 @@ function searchMovies() {
 // Event listener for the search input
 document.getElementById("searchInput").addEventListener("input", searchMovies);
 
-// Function to scroll to the top of the page
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}
-
-// Show/hide the scroll-to-top button based on scroll position
-window.addEventListener("scroll", function () {
-  var scrollToTopBtn = document.getElementById("scrollToTopBtn");
-  if (window.pageYOffset > 300) {
-    scrollToTopBtn.style.display = "block";
-  } else {
-    scrollToTopBtn.style.display = "none";
-  }
-});
 
   // Function to open a modal with movie details
   function popupShowModal(movie) {
