@@ -177,17 +177,20 @@ function searchMovies() {
       const filmContainer = document.getElementById("film");
       filmContainer.innerHTML = "";
 
-      // If no movies match the search criteria, show a message
-      if (filteredMovies.length === 0) {
-        const noResultsMessage = document.createElement("p");
-        noResultsMessage.textContent = "No movies found! Please make sure that the movie you are searching for was released between 2020-2023...";
-        filmContainer.appendChild(noResultsMessage);
-      } else {
-        // Generate the HTML elements for the filtered movies
-        filteredMovies.forEach((movie, i) => {
-          // Create the container div for each movie
-          let movieContainer = document.createElement("div");
-          movieContainer.classList.add("display", "col-md-4");
+
+// If no movies match the search criteria, show a message
+if (filteredMovies.length === 0) {
+  const noResultsMessage = document.createElement("p");
+  noResultsMessage.innerHTML = '<span style="color: purple">No movies found! Please make sure that the movie you are searching for was released between 2020-2023. To change the year,</span>  <span style="font-weight: bold; font-style: italic;"><a href="https://soaps.vercel.app">click here</a></span>';
+
+  filmContainer.appendChild(noResultsMessage);
+} else {
+  // Generate the HTML elements for the filtered movies
+  filteredMovies.forEach((movie, i) => {
+    // Create the container div for each movie
+    let movieContainer = document.createElement("div");
+    movieContainer.classList.add("display", "col-md-4");
+
 
           // Create the movie thumbnail
           let thumbnail = document.createElement("img");
