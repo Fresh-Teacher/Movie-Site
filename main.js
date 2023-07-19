@@ -180,7 +180,7 @@ function searchMovies() {
       // If no movies match the search criteria, show a message
       if (filteredMovies.length === 0) {
         const noResultsMessage = document.createElement("p");
-        noResultsMessage.textContent = "No movies found.";
+        noResultsMessage.textContent = "No movies found! Please make sure that the movie you are searching for was released between 2020-2023...";
         filmContainer.appendChild(noResultsMessage);
       } else {
         // Generate the HTML elements for the filtered movies
