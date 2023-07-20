@@ -239,13 +239,22 @@ if (filteredMovies.length === 0) {
           // Create the div for movie status
           let statusDiv = document.createElement("div");
           statusDiv.classList.add("movie-status");
+// Array of supported video file extensions
+const supportedVideoFormats = [".mp4", ".webm", ".3gp", ".avi", ".mov", ".mkv", ".wmv", ".flv", ".ogg", ".drc", ".gif", ".mng", ".mts", ".m2ts", ".ts", ".qt", ".rm", ".rmvb", ".viv", ".asf", ".amv", ".m4p", ".m4v", ".svi", ".3gpp", ".3g2", ".mxf", ".roq", ".nsv"];
 
-          // Check if the movie is translated or untranslated
-          if (!movie.href || !movie.href.endsWith(".mp4")) {
-            statusDiv.innerHTML = "Untranslated";
-          } else {
-            statusDiv.innerHTML = "Translated";
-          }
+// Check if the movie is translated or untranslated
+if (!movie.href || !isVideoFormatSupported(movie.href)) {
+  statusDiv.innerHTML = "Untranslated";
+} else {
+  statusDiv.innerHTML = "Translated";
+}
+
+// Function to check if the video format is supported
+function isVideoFormatSupported(url) {
+  const videoExtension = url.substr(url.lastIndexOf(".")).toLowerCase();
+  return supportedVideoFormats.includes(videoExtension);
+}
+
 
           // Append the status div to the movie container
           movieContainer.appendChild(statusDiv);
