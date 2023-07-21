@@ -1,3 +1,4 @@
+
 fetch('movies.json')
 .then((response) => {
     return response.json();
