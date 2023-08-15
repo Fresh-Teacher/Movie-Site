@@ -1,5 +1,5 @@
 
-fetch('movies.json')
+fetch('home.json')
 .then((response) => {
     return response.json();
 })
@@ -164,7 +164,7 @@ function searchMovies() {
   const searchInput = document.getElementById("searchInput").value.trim().toLowerCase();
 
   // Fetch movies data from movies.json
-  fetch("movies.json")
+  fetch("2023.json")
     .then((response) => {
       return response.json();
     })
