@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Page</title>
+  <style>
+    /* Styles remain the same */
+  </style>
+</head>
+<body>
+  <nav class="sticky-nav">
+    <h1>Title</h1>
+    <input type="text" id="search-bar" placeholder="Search...">
+  </nav>
+  
+  <div class="movie-cards" id="movie-cards">
+    <!-- Movie cards go here -->
+  </div>
+  <button class="load-more-button" id="load-more-button">Load More</button>
+  
+  <button id="scroll-to-top-button">Scroll to Top</button>
+
+  <script>
+    const movieCards = document.getElementById('movie-cards');
+    const loadMoreButton = document.getElementById('load-more-button');
+    const scrollToTopButton = document.getElementById('scroll-to-top-button');
+    let startIndex = 0;
+    let searchResults = [];
+
+    // Fetch movies from movies.json
+    fetch('movies.json')
+      .then(response => response.json())
+      .then(data => {
+        loadMovies(data.slice(startIndex, startIndex + 12));
+        startIndex += 12;
+      });
+
+    // Fetch search results from search.json
+    fetch('search.json')
+      .then(response => response.json())
+      .then(data => {
+        searchResults = data;
+      });
+
+    // Load movies from movies.json and create movie cards
+    function loadMovies(movies) {
+      movies.forEach(movie => {
+        const card = document.createElement('div');
+        card.classList.add('movie-card');
+        card.innerHTML = `
+          <img src="${movie.thumbnail}" alt="Movie Thumbnail">
+          <h2>${movie.title} (${movie.year})</h2>
+          <p>Cast: ${movie.cast.join(', ')}</p>
+          <p>Genres: ${movie.genres.join(', ')}</p>
+          <button class="details-button" onclick="openModal('${movie.title}', '${movie.extract}')">View Details</button>
+        `;
+        movieCards.appendChild(card);
+      });
+    }
+
+    // Event listener for load more button
+    loadMoreButton.addEventListener('click', () => {
+      fetch('movies.json')
+        .then(response => response.json())
+        .then(data => {
+          loadMovies(data.slice(startIndex, startIndex + 12));
+          startIndex += 12;
+        });
+    });
+
+    // Event listener for scroll to top button
+    scrollToTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Event listener to show/hide scroll to top button
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) {
+        scrollToTopButton.style.display = 'block';
+      } else {
+        scrollToTopButton.style.display = 'none';
+      }
+    });
+
+    // Modal and searching logic remains the same
+    function openModal(title, details) {
+      const modal = document.createElement('div');
+      modal.classList.add('modal');
+      modal.innerHTML = `
+        <h2>${title}</h2>
+        <p>${details}</p>
+        <button onclick="closeModal()">Close</button>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function closeModal() {
+      const modal = document.querySelector('.modal');
+      if (modal) {
+        modal.remove();
+      }
+    }
+  </script>
+</body>
+</html>
