@@ -14,8 +14,12 @@
         }
 
         .card {
-            transition: transform 0.3s ease-in-out;
-        }
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center items horizontally */
+        text-align: center; /* Center text content */
+    }
 
         .card:hover {
             transform: scale(1.05);
@@ -35,10 +39,10 @@
         <div class="container">
             <a class="navbar-brand" href="#">Fresh Teacher's Video Library</a>
             <form class="form-inline ml-auto">
-                <input class="form-control mr-sm-2" type="search" id="searchInput" placeholder="Search Movies..." aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" id="searchInput" placeholder="Search for Movies..." aria-label="Search">
             </form>
         </div>
-    </nav>
+    </nav><br><br><br>
 
     <div class="container mt-5">
         <div class="row" id="movie-list">
@@ -512,22 +516,22 @@ function renderMovies(page) {
         movieList.appendChild(noResultsMessage);
     } else {
         for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
-            const movie = filteredMovies[i];
+    const movie = filteredMovies[i];
 
-            const movieCard = document.createElement("div");
-            movieCard.className = "col-md-4 mb-4";
+    const movieCard = document.createElement("div");
+    movieCard.className = "col-md-4 mb-4";
 
-            movieCard.innerHTML = `
-                <div class="card" data-toggle="modal" data-target="#movieModal" data-movie-index="${i}">
-                    <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
-                    <div class="card-body">
-                        <h5 class="card-title">${movie.title}</h5>
-                    </div>
-                </div>
-            `;
+    movieCard.innerHTML = `
+        <div class="card" data-toggle="modal" data-target="#movieModal" data-movie-index="${i}">
+            <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
+            <div class="card-body">
+                <h5 class="card-title">${movie.title.toUpperCase()}</h5> <!-- Capitalize title -->
+            </div>
+        </div>
+    `;
 
-            movieList.appendChild(movieCard);
-        }
+    movieList.appendChild(movieCard);
+}
     }
 
     const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
