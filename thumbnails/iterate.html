@@ -348,6 +348,8 @@ searchInput.addEventListener("input", () => {
 
 loadMoreButton.addEventListener("click", () => {
     currentPage++;
+    const topMovieIndex = (currentPage - 1) * moviesPerPage;
+    window.scrollTo(0, 0); // Scroll to the top
     renderMovies(currentPage);
 });
 
