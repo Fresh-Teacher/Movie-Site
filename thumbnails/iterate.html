@@ -14,12 +14,12 @@
         }
 
         .card {
-        transition: transform 0.3s ease-in-out;
-    }
+            transition: transform 0.3s ease-in-out;
+        }
 
-    .card:hover {
-        transform: scale(1.05);
-    }
+        .card:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -50,6 +50,9 @@
                 </div>
                 <div class="modal-body">
                     <h6 id="modal-movie-title"></h6>
+                    <div class="btn-group mb-3" id="modal-season-buttons">
+                        <!-- Season buttons will be populated here by JavaScript -->
+                    </div>
                     <ul class="list-group" id="modal-episode-list">
                         <!-- Episode links will be populated here by JavaScript -->
                     </ul>
@@ -66,233 +69,193 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-const seriesData = [
+        const seriesData = [
     {
-        "title": "Series 1",
-        "thumbnail": "thumbnails/series1-thumbnail.jpg",
-        "href": "http://example.com/series1",
+        "title": "10 Years Ticket",
+        "href": "http://95.169.196.50/downloadserie.php?file=luganda/10%20Years%20Ticket/10%20Years%20Ticket%20by%20Vj%20Baros.mp4&eps_id=41527",
         "seasons": [
             {
                 "seasonNumber": 1,
-                "episodeCount": 10
-            },
-            {
-                "seasonNumber": 2,
-                "episodeCount": 15
+                "episodeCount": 16
             }
-            // Add more seasons here
         ]
     },
     {
-        "title": "Series 2",
-        "thumbnail": "thumbnails/series2-thumbnail.jpg",
-        "href": "http://example.com/series2",
+        "title": "Merlin",
+        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Merlin/Merlin%20by%20Vj%20Baros.mp4&eps_id=41528",
         "seasons": [
             {
                 "seasonNumber": 1,
-                "episodeCount": 8
+                "episodeCount": 13
             },
             {
                 "seasonNumber": 2,
-                "episodeCount": 12
+                "episodeCount": 13
             },
-            {
-                "seasonNumber": 3,
-                "episodeCount": 20
-            }
-            // Add more seasons here
+            // Add more seasons for Merlin
         ]
     },
     {
-        "title": "Series 3",
-        "thumbnail": "thumbnails/series3-thumbnail.jpg",
-        "href": "http://example.com/series3",
+        "title": "Spartacus",
+        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Spartacus/Spartacus%20by%20Vj%20Baros.mp4&eps_id=41529",
         "seasons": [
             {
                 "seasonNumber": 1,
-                "episodeCount": 5
+                "episodeCount": 13
             },
             {
                 "seasonNumber": 2,
                 "episodeCount": 10
             },
+            // Add more seasons for Spartacus
+        ]
+    },
+    {
+        "title": "Vikings",
+        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Vikings/Vikings%20by%20Vj%20Baros.mp4&eps_id=41530",
+        "seasons": [
             {
-                "seasonNumber": 3,
-                "episodeCount": 18
+                "seasonNumber": 1,
+                "episodeCount": 9
             },
             {
-                "seasonNumber": 4,
-                "episodeCount": 25
-            }
-            // Add more seasons here
+                "seasonNumber": 2,
+                "episodeCount": 10
+            },
+            // Add more seasons for Vikings
+        ]
+    },
+    {
+        "title": "Breaking Bad",
+        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Breaking%20Bad/Breaking%20Bad%20by%20Vj%20Baros.mp4&eps_id=41531",
+        "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 7
+            },
+            {
+                "seasonNumber": 2,
+                "episodeCount": 13
+            },
+            // Add more seasons for Breaking Bad
         ]
     }
     // Add more series here
 ];
 
+
         const movieList = document.getElementById("movie-list");
-const searchInput = document.getElementById("searchInput");
-const loadMoreButton = document.getElementById("load-more");
+        const searchInput = document.getElementById("searchInput");
+        const loadMoreButton = document.getElementById("load-more");
 
-let currentPage = 1;
-const moviesPerPage = 12;
+        let currentPage = 1;
+        const moviesPerPage = 12;
 
-// Generate episode link based on season, episode number, and increment
-function generateEpisodeLink(title, seasonIndex, episodeNumber) {
-    const baseUrl = "http://95.169.196.50/downloadserie.php";
-    const encodedTitle = encodeURIComponent(title);
-    const epsId = 41527 + seasonIndex * 100 + episodeNumber;
-    const episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20Vj%20Baros.mp4&eps_id=${epsId}`;
-    return episodeUrl;
-}
-
-function renderMovies(page) {
-    const startIndex = (page - 1) * moviesPerPage;
-    const endIndex = startIndex + moviesPerPage;
-
-    const filteredMovies = seriesData.filter(movie =>
-        movie.title.toLowerCase().includes(searchInput.value.toLowerCase())
-    );
-
-    movieList.innerHTML = ""; // Clear existing content
-
-    if (filteredMovies.length === 0) {
-        const noResultsMessage = document.createElement("div");
-        noResultsMessage.className = "col-12 text-center my-5";
-        noResultsMessage.textContent = "No results found.";
-        movieList.appendChild(noResultsMessage);
-    } else {
-        for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
-            const movie = filteredMovies[i];
-
-            const movieCard = document.createElement("div");
-            movieCard.className = "col-md-4 mb-4";
-
-            movieCard.innerHTML = `
-                <div class="card" data-toggle="modal" data-target="#movieModal" data-movie-index="${i}">
-                    <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
-                    <div class="card-body">
-                        <h5 class="card-title">${movie.title}</h5>
-                        <p class="card-text">${movie.description}</p>
-                    </div>
-                </div>
-            `;
-
-            movieList.appendChild(movieCard);
+        // Generate episode link based on season, episode number, and increment
+        function generateEpisodeLink(title, seasonIndex, episodeNumber) {
+            const baseUrl = "http://95.169.196.50/downloadserie.php";
+            const encodedTitle = encodeURIComponent(title);
+            const epsId = 41527 + seasonIndex * 100 + episodeNumber;
+            const episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20Vj%20Baros.mp4&eps_id=${epsId}`;
+            return episodeUrl;
         }
-    }
 
-    if (endIndex >= filteredMovies.length) {
-        loadMoreButton.disabled = true;
-        loadMoreButton.textContent = "No more movies to display";
-    } else {
-        loadMoreButton.disabled = false;
-        loadMoreButton.textContent = "Load More";
-    }
-}
+        function renderMovies(page) {
+            const startIndex = (page - 1) * moviesPerPage;
+            const endIndex = startIndex + moviesPerPage;
 
-renderMovies(currentPage);
+            const filteredMovies = seriesData.filter(movie =>
+                movie.title.toLowerCase().includes(searchInput.value.toLowerCase())
+            );
 
-searchInput.addEventListener("input", () => {
-    currentPage = 1;
-    renderMovies(currentPage);
-});
+            movieList.innerHTML = ""; // Clear existing content
 
-loadMoreButton.addEventListener("click", () => {
-    currentPage++;
-    const topMovieIndex = (currentPage - 1) * moviesPerPage;
-    window.scrollTo(0, 0); // Scroll to the top
-    renderMovies(currentPage);
-});
+            if (filteredMovies.length === 0) {
+                const noResultsMessage = document.createElement("div");
+                noResultsMessage.className = "col-12 text-center my-5";
+                noResultsMessage.textContent = "No results found.";
+                movieList.appendChild(noResultsMessage);
+            } else {
+                for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
+                    const movie = filteredMovies[i];
 
-// Update modal content based on selected season
-$('#movieModal').on('show.bs.modal', function (event) {
-    const button = $(event.relatedTarget);
-    const movieIndex = button.data('movie-index');
-    const movie = seriesData[movieIndex];
+                    const movieCard = document.createElement("div");
+                    movieCard.className = "col-md-4 mb-4";
 
-    const modal = $(this);
-    modal.find("#modal-movie-title").text(movie.title);
-    modal.find("#modal-episode-list").empty();
+                    movieCard.innerHTML = `
+                        <div class="card" data-toggle="modal" data-target="#movieModal" data-movie-index="${i}">
+                            <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
+                            <div class="card-body">
+                                <h5 class="card-title">${movie.title}</h5>
+                            </div>
+                        </div>
+                    `;
 
-    const seasonButtons = modal.find("#modal-season-buttons");
-    seasonButtons.empty();
-
-    if (movie.seasons && movie.seasons.length > 0) {
-        movie.seasons.forEach((season, seasonIndex) => {
-            const seasonButton = document.createElement('button');
-            seasonButton.className = 'btn btn-secondary mr-2';
-            seasonButton.textContent = `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`;
-            seasonButton.addEventListener('click', () => {
-                modal.find("#modal-episode-list").empty();
-                for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
-                    const listItem = document.createElement('li');
-                    listItem.className = 'list-group-item';
-                    const episodeLink = generateEpisodeLink(movie.href, season.seasonNumber, episodeIndex);
-                    listItem.innerHTML = `<a href="${episodeLink}">Episode ${episodeIndex}</a>`;
-                    modal.find("#modal-episode-list").append(listItem);
+                    movieList.appendChild(movieCard);
                 }
-            });
-            seasonButtons.append(seasonButton);
+            }
+
+            if (endIndex >= filteredMovies.length) {
+                loadMoreButton.disabled = true;
+                loadMoreButton.textContent = "No more movies to display";
+            } else {
+                loadMoreButton.disabled = false;
+                loadMoreButton.textContent = "Load More";
+            }
+        }
+
+        renderMovies(currentPage);
+
+        searchInput.addEventListener("input", () => {
+            currentPage = 1;
+            renderMovies(currentPage);
         });
-    } else {
-        // Handle case where no seasons data is available
-        const noSeasonsMessage = document.createElement('div');
-        noSeasonsMessage.className = 'col-12 text-center my-3';
-        noSeasonsMessage.textContent = 'No seasons available for this movie.';
-        seasonButtons.append(noSeasonsMessage);
-    }
-});
 
-    // Generate episode link based on season, episode number, and base link
-function generateEpisodeLink(baseLink, seasonIndex, episodeNumber) {
-    const epsId = 41527 + seasonIndex * 100 + episodeNumber;
-    const episodeUrl = `${baseLink}&eps_id=${epsId}`;
-    return episodeUrl;
-}
+        loadMoreButton.addEventListener("click", () => {
+            currentPage++;
+            const topMovieIndex = (currentPage - 1) * moviesPerPage;
+            window.scrollTo(0, 0); // Scroll to the top
+            renderMovies(currentPage);
+        });
 
-    // Add the event listener for clicking on a movie card (if not already added)
-    if (!modal.data('card-click-event-added')) {
-        $('.card').on('click', function () {
-            const movieIndex = $(this).data('movie-index');
+        // Update modal content based on selected series
+        $('#movieModal').on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget);
+            const movieIndex = button.data('movie-index');
             const movie = seriesData[movieIndex];
 
-            const modal = $('#movieModal');
+            const modal = $(this);
             modal.find("#modal-movie-title").text(movie.title);
             modal.find("#modal-episode-list").empty();
 
             const seasonButtons = modal.find("#modal-season-buttons");
             seasonButtons.empty();
-            if (movie.series && movie.series.length > 0) {
-                movie.series.forEach((series, seriesIndex) => {
+
+            if (movie.seasons && movie.seasons.length > 0) {
+                movie.seasons.forEach((season, seasonIndex) => {
                     const seasonButton = document.createElement('button');
                     seasonButton.className = 'btn btn-secondary mr-2';
-                    seasonButton.textContent = series.title;
+                    seasonButton.textContent = `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`;
                     seasonButton.addEventListener('click', () => {
                         modal.find("#modal-episode-list").empty();
-                        series.parts.forEach((episode, episodeIndex) => {
+                        for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
                             const listItem = document.createElement('li');
                             listItem.className = 'list-group-item';
-                            const episodeLink = generateEpisodeLink(movie.title, seriesIndex, episodeIndex + 1);
-                            listItem.innerHTML = `<a href="${episodeLink}">${series.title}, Episode ${episodeIndex + 1}</a>`;
+                            const episodeLink = generateEpisodeLink(movie.title, season.seasonNumber, episodeIndex);
+                            listItem.innerHTML = `<a href="${episodeLink}">Episode ${episodeIndex}</a>`;
                             modal.find("#modal-episode-list").append(listItem);
-                        });
+                        }
                     });
                     seasonButtons.append(seasonButton);
                 });
             } else {
-                // Handle case where no series data is available
-                const noSeriesMessage = document.createElement('div');
-                noSeriesMessage.className = 'col-12 text-center my-3';
-                noSeriesMessage.textContent = 'No series available for this movie.';
-                seasonButtons.append(noSeriesMessage);
+                // Handle case where no seasons data is available
+                const noSeasonsMessage = document.createElement('div');
+                noSeasonsMessage.className = 'col-12 text-center my-3';
+                noSeasonsMessage.textContent = 'No seasons available for this movie.';
+                seasonButtons.append(noSeasonsMessage);
             }
-
-            modal.data('card-click-event-added', true);
         });
-    }
-
-
     </script>
 </body>
 </html>
