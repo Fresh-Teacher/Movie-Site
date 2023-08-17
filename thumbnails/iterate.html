@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Teacher's Video Library</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .card {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Fresh Teacher's Video Library</a>
+            <form class="form-inline ml-auto">
+                <input class="form-control mr-sm-2" type="search" id="searchInput" placeholder="Search Movies..." aria-label="Search">
+            </form>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row" id="movie-list">
+            <!-- Movie cards will be populated here by JavaScript -->
+        </div>
+        <button class="btn btn-primary btn-block" id="load-more">Load More</button>
+    </div>
+
+    <div class="modal fade" id="movieModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Movie Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6 id="modal-movie-title"></h6>
+                    <p id="modal-movie-description"></p>
+                    <ul class="list-group" id="modal-episode-list">
+                        <!-- Episode links will be populated here by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-to-top">
+        <i class="fa fa-arrow-up"></i>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const seriesData = [
+        {
+                "title": "Iron Fist",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 2",
+                "description": "Description for Movie 2",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie2/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie2/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 2",
+                "description": "Description for Movie 2",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie2/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie2/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 2",
+                "description": "Description for Movie 2",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie2/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie2/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 2",
+                "description": "Description for Movie 2",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie2/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie2/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 2",
+                "description": "Description for Movie 2",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie2/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie2/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Merlin",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 2",
+                "description": "Description for Movie 2",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie2/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie2/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 2",
+                "description": "Description for Movie 2",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie2/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie2/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 2",
+                "description": "Description for Movie 2",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie2/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie2/episode2.mp4" }
+                ]
+            },
+            {
+                "title": "Movie Title 1657",
+                "description": "Description for Movie 1",
+                "thumbnail": "Iron20Fist202017.jpgh380w250atzc1.jpg",
+                "episodes": [
+                    { "title": "Episode 1", "url": "http://example.com/movie1/episode1.mp4" },
+                    { "title": "Episode 2", "url": "http://example.com/movie1/episode2.mp4" }
+                ]
+            }
+            // Add more movie objects here
+        ];
+
+        const movieList = document.getElementById("movie-list");
+const searchInput = document.getElementById("searchInput");
+const loadMoreButton = document.getElementById("load-more");
+
+let currentPage = 1;
+const moviesPerPage = 12;
+
+function renderMovies(page) {
+    const startIndex = (page - 1) * moviesPerPage;
+    const endIndex = startIndex + moviesPerPage;
+
+    const filteredMovies = seriesData.filter(movie =>
+        movie.title.toLowerCase().includes(searchInput.value.toLowerCase())
+    );
+
+    movieList.innerHTML = ""; // Clear existing content
+
+    if (filteredMovies.length === 0) {
+        const noResultsMessage = document.createElement("div");
+        noResultsMessage.className = "col-12 text-center my-5";
+        noResultsMessage.textContent = "No results found.";
+        movieList.appendChild(noResultsMessage);
+    } else {
+        for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
+            const movie = filteredMovies[i];
+
+            const movieCard = document.createElement("div");
+            movieCard.className = "col-md-4 mb-4";
+
+            movieCard.innerHTML = `
+                <div class="card" data-toggle="modal" data-target="#movieModal" data-movie-index="${i}">
+                    <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${movie.title}</h5>
+                        <p class="card-text">${movie.description}</p>
+                    </div>
+                </div>
+            `;
+
+            movieList.appendChild(movieCard);
+        }
+    }
+
+    if (endIndex >= filteredMovies.length) {
+        loadMoreButton.disabled = true;
+        loadMoreButton.textContent = "No more movies to display";
+    } else {
+        loadMoreButton.disabled = false;
+        loadMoreButton.textContent = "Load More";
+    }
+}
+
+renderMovies(currentPage);
+
+searchInput.addEventListener("input", () => {
+    currentPage = 1;
+    renderMovies(currentPage);
+});
+
+loadMoreButton.addEventListener("click", () => {
+    currentPage++;
+    renderMovies(currentPage);
+});
+
+$('#movieModal').on('show.bs.modal', function (event) {
+    const button = $(event.relatedTarget);
+    const movieIndex = button.data('movie-index');
+    const movie = seriesData[movieIndex];
+
+    const modal = $(this);
+    modal.find("#modal-movie-title").text(movie.title);
+    modal.find("#modal-movie-description").text(movie.description);
+
+    const episodeList = modal.find("#modal-episode-list");
+    episodeList.empty();
+    movie.episodes.forEach(episode => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+        listItem.innerHTML = `<a href="${episode.url}">${episode.title}</a>`;
+        episodeList.append(listItem);
+    });
+});
+
+// Handle modal display when clicking on a movie card
+$(document).on('click', '.card', function () {
+    const movieIndex = $(this).data('movie-index');
+    const movie = seriesData[movieIndex];
+
+    const modal = $('#movieModal');
+    modal.find("#modal-movie-title").text(movie.title);
+    modal.find("#modal-movie-description").text(movie.description);
+
+    const episodeList = modal.find("#modal-episode-list");
+    episodeList.empty();
+    movie.episodes.forEach(episode => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+        listItem.innerHTML = `<a href="${episode.url}">${episode.title}</a>`;
+        episodeList.append(listItem);
+    });
+});
+    </script>
+</body>
+</html>
