@@ -6,12 +6,15 @@
     <title>Fresh Teacher's Video Library</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            cursor: pointer;
-        }
+ .scroll-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
 
         .card {
         transition: transform 0.3s ease-in-out;
@@ -77,9 +80,7 @@
         </div>
     </div>
 
-    <div class="scroll-to-top">
-        <i class="fa fa-arrow-up"></i>
-    </div>
+    <div class="scroll-to-top"> 🔝 </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -508,6 +509,27 @@ function renderMovies(page) {
     );
 
     movieList.innerHTML = ""; // Clear existing content
+
+    // Add a click event listener to the scroll-to-top button
+const scrollToTopButton = document.querySelector(".scroll-to-top");
+
+// Function to show or hide the scroll-to-top button
+function toggleScrollToTopButton() {
+    if (window.scrollY > 300) {
+        scrollToTopButton.style.display = "block";
+    } else {
+        scrollToTopButton.style.display = "none";
+    }
+}
+
+// Add a scroll event listener to toggle the button visibility
+window.addEventListener("scroll", toggleScrollToTopButton);
+
+scrollToTopButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top smoothly
+});
+
+
 
     if (filteredMovies.length === 0) {
         const noResultsMessage = document.createElement("div");
