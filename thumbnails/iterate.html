@@ -133,8 +133,6 @@
     }
 ];
 
-
-
 $('#movieModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget);
     const movieIndex = button.data('movie-index');
@@ -172,80 +170,82 @@ $('#movieModal').on('show.bs.modal', function (event) {
 
                     listItem.appendChild(episodeNameElement);
 
-if (episodeLink) {
-    const episodeLinkElement = document.createElement("a");
-    episodeLinkElement.href = episodeLink;
+                    if (episodeLink) {
+                        const episodeLinkElement = document.createElement("a");
+                        episodeLinkElement.href = episodeLink;
 
-    const watchButton = document.createElement("button");
-    watchButton.className = "btn btn-success btn-sm ml-2";
-    watchButton.textContent = "Watch";
-    watchButton.addEventListener("click", () => {
-        // Create a video element and set its attributes
-        const videoElement = document.createElement("video");
-        videoElement.controls = true;
-        videoElement.autoplay = true;
-        videoElement.style.width = "100%";
+                        const watchButton = document.createElement("button");
+                        watchButton.className = "btn btn-success btn-sm ml-2";
+                        watchButton.textContent = "Watch";
+                        watchButton.addEventListener("click", () => {
+                            const videoElement = document.createElement("video");
+                            videoElement.controls = true;
+                            videoElement.autoplay = true;
+                            videoElement.style.width = "100%";
 
-        const sourceElement = document.createElement("source");
-        sourceElement.src = episodeLink;
-        sourceElement.type = "video/mp4";
+                            const sourceElement = document.createElement("source");
+                            sourceElement.src = episodeLink;
+                            sourceElement.type = "video/mp4";
 
-        videoElement.appendChild(sourceElement);
+                            videoElement.appendChild(sourceElement);
 
-        // Create a modal to display the video
-        const videoModal = document.createElement("div");
-        videoModal.className = "modal fade";
-        videoModal.id = "videoModal";
-        videoModal.tabIndex = -1;
-        videoModal.role = "dialog";
-        videoModal.innerHTML = `
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Watch ${generateEpisodeName(season.seasonNumber, episodeIndex)}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            ${videoElement.outerHTML}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+                            const videoModal = document.createElement("div");
+                            videoModal.className = "modal fade";
+                            videoModal.id = "videoModal";
+                            videoModal.tabIndex = -1;
+                            videoModal.role = "dialog";
+                            videoModal.setAttribute("data-backdrop", "static"); // Disable backdrop
+                            videoModal.innerHTML = `
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Watch ${generateEpisodeName(season.seasonNumber, episodeIndex)}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="embed-responsive embed-responsive-16by9">
+                                                ${videoElement.outerHTML}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
 
-        // Add the video modal to the document and show it
-        document.body.appendChild(videoModal);
-        $("#videoModal").modal("show");
+                            document.body.appendChild(videoModal);
+                            $("#videoModal").modal("show");
 
-        // Remove the video modal from the document after it's hidden
-        $("#videoModal").on("hidden.bs.modal", () => {
-            document.body.removeChild(videoModal);
-        });
-    });
+                            videoElement.addEventListener("touchstart", () => {
+                                if (!videoElement.paused) {
+                                    videoElement.pause();
+                                }
+                            });
 
-    const downloadButton = document.createElement("button");
-    downloadButton.className = "btn btn-primary btn-sm ml-2";
-    downloadButton.textContent = "Download";
-    downloadButton.addEventListener("click", () => {
-        // Create a hidden link element to trigger the download
-        const downloadLink = document.createElement("a");
-        downloadLink.href = episodeLink;
-        downloadLink.download = generateEpisodeName(season.seasonNumber, episodeIndex) + ".mp4"; // Add ".mp4" to the filename
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-    });
+                            $("#videoModal").on("hidden.bs.modal", () => {
+                                document.body.removeChild(videoModal);
+                            });
+                        });
 
-    listItem.appendChild(document.createTextNode(" "));
-    listItem.appendChild(episodeLinkElement);
-    listItem.appendChild(document.createTextNode(" "));
-    listItem.appendChild(watchButton);
-    listItem.appendChild(document.createTextNode(" "));
-    listItem.appendChild(downloadButton);
-}
+                        const downloadButton = document.createElement("button");
+                        downloadButton.className = "btn btn-primary btn-sm ml-2";
+                        downloadButton.textContent = "Download";
+                        downloadButton.addEventListener("click", () => {
+                            const downloadLink = document.createElement("a");
+                            downloadLink.href = episodeLink;
+                            downloadLink.download = generateEpisodeName(season.seasonNumber, episodeIndex);
+                            document.body.appendChild(downloadLink);
+                            downloadLink.click();
+                            document.body.removeChild(downloadLink);
+                        });
+
+                        listItem.appendChild(document.createTextNode(" "));
+                        listItem.appendChild(episodeLinkElement);
+                        listItem.appendChild(document.createTextNode(" "));
+                        listItem.appendChild(watchButton);
+                        listItem.appendChild(document.createTextNode(" "));
+                        listItem.appendChild(downloadButton);
+                    }
 
                     modal.find("#modal-episode-list").append(listItem);
                 }
