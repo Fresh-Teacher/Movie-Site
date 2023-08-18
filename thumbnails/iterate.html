@@ -35,19 +35,6 @@
     margin-top: 20px;
 }
 
-/* Adjust video player dimensions */
-#videoPlayer {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Adjust video modal dimensions */
-#videoModal .modal-dialog {
-    max-width: 90%;
-    margin: 1.75rem auto;
-}
-
-
     </style>
 </head>
 <body>
@@ -210,17 +197,7 @@ $('#movieModal').on('show.bs.modal', function (event) {
                         watchButton.className = "btn btn-success btn-sm ml-2";
                         watchButton.textContent = "Watch";
                         watchButton.addEventListener("click", () => {
-                            const videoModal = document.getElementById("videoModal");
-                            const videoPlayer = document.getElementById("videoPlayer");
-
-                            // Set the video source
-                            videoPlayer.src = episodeLink;
-
-                            // Open the video modal
-                            $(videoModal).modal("show");
-
-                            // Play the video
-                            videoPlayer.play();
+                            window.open(episodeLink, "_blank");
                         });
 
                         const downloadButton = document.createElement("button");
