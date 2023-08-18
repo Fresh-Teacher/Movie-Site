@@ -35,6 +35,19 @@
     margin-top: 20px;
 }
 
+/* Adjust video player dimensions */
+#videoPlayer {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Adjust video modal dimensions */
+#videoModal .modal-dialog {
+    max-width: 90%;
+    margin: 1.75rem auto;
+}
+
+
     </style>
 </head>
 <body>
@@ -80,6 +93,25 @@
         </div>
     </div>
 
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Watch Video</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <video id="videoPlayer" controls autoplay>
+                        <!-- Video source will be added dynamically -->
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
     <div class="scroll-to-top"> 🔝 </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -89,7 +121,7 @@
  const seriesData = [
     {
         "title": "10 Years Ticket",
-        "href": "https://95.169.196.50/downloadserie.php?file=luganda/10%20Years%20Ticket/10%20Years%20Ticket%20by%20Vj%20Baros.mp4",
+        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Spartacus-%20Blood%20and%20Sand/Spartacus-%20Blood%20and%20Sand%201%20by%20Vj%20Junior.mp4",
         "seasons": [
             {
                 "seasonNumber": 1,
@@ -101,7 +133,7 @@
     },
     {
         "title": "Merlin",
-        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Merlin/Merlin%20by%20Vj%20Baros.mp4&eps_id=41528",
+        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Merlin/Merlin%20by%20Vj%20Baros.mp4",
         "seasons": [
             {
                 "seasonNumber": 1,
@@ -117,7 +149,7 @@
     },
     {
         "title": "Spartacus",
-        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Spartacus/Spartacus%20by%20Vj%20Junior.mp4&eps_id=41529",
+        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Spartacus/Spartacus%20by%20Vj%20Junior.mp4",
         "seasons": [
             {
                 "seasonNumber": 1,
@@ -178,65 +210,24 @@ $('#movieModal').on('show.bs.modal', function (event) {
                         watchButton.className = "btn btn-success btn-sm ml-2";
                         watchButton.textContent = "Watch";
                         watchButton.addEventListener("click", () => {
-                            const videoElement = document.createElement("video");
-                            videoElement.controls = true;
-                            videoElement.autoplay = true;
-                            videoElement.style.width = "100%";
+                            const videoModal = document.getElementById("videoModal");
+                            const videoPlayer = document.getElementById("videoPlayer");
 
-                            const sourceElement = document.createElement("source");
-                            sourceElement.src = episodeLink;
-                            sourceElement.type = "video/mp4";
+                            // Set the video source
+                            videoPlayer.src = episodeLink;
 
-                            videoElement.appendChild(sourceElement);
+                            // Open the video modal
+                            $(videoModal).modal("show");
 
-                            const videoModal = document.createElement("div");
-                            videoModal.className = "modal fade";
-                            videoModal.id = "videoModal";
-                            videoModal.tabIndex = -1;
-                            videoModal.role = "dialog";
-                            videoModal.setAttribute("data-backdrop", "static"); // Disable backdrop
-                            videoModal.innerHTML = `
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Watch ${generateEpisodeName(season.seasonNumber, episodeIndex)}</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="embed-responsive embed-responsive-16by9">
-                                                ${videoElement.outerHTML}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-
-                            document.body.appendChild(videoModal);
-                            $("#videoModal").modal("show");
-
-                            videoElement.addEventListener("touchstart", () => {
-                                if (!videoElement.paused) {
-                                    videoElement.pause();
-                                }
-                            });
-
-                            $("#videoModal").on("hidden.bs.modal", () => {
-                                document.body.removeChild(videoModal);
-                            });
+                            // Play the video
+                            videoPlayer.play();
                         });
 
                         const downloadButton = document.createElement("button");
                         downloadButton.className = "btn btn-primary btn-sm ml-2";
                         downloadButton.textContent = "Download";
                         downloadButton.addEventListener("click", () => {
-                            const downloadLink = document.createElement("a");
-                            downloadLink.href = episodeLink;
-                            downloadLink.download = generateEpisodeName(season.seasonNumber, episodeIndex);
-                            document.body.appendChild(downloadLink);
-                            downloadLink.click();
-                            document.body.removeChild(downloadLink);
+                            window.location.href = episodeLink;
                         });
 
                         listItem.appendChild(document.createTextNode(" "));
