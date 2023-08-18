@@ -89,7 +89,7 @@
  const seriesData = [
     {
         "title": "10 Years Ticket",
-        "href": "http://95.169.196.50/downloadserie.php?file=luganda/10%20Years%20Ticket/10%20Years%20Ticket%20by%20Vj%20Baros.mp4&eps_id=41527",
+        "href": "http://95.169.196.50/downloadserie.php?file=luganda/Spartacus-%20Blood%20and%20Sand/Spartacus-%20Blood%20and%20Sand%201%20by%20Vj%20Junior.mp4",
         "seasons": [
             {
                 "seasonNumber": 1,
@@ -133,8 +133,6 @@
     }
 ];
 
-
-
 $('#movieModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget);
     const movieIndex = button.data('movie-index');
@@ -163,9 +161,41 @@ $('#movieModal').on('show.bs.modal', function (event) {
                 for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
                     const listItem = document.createElement('li');
                     listItem.className = 'list-group-item';
+
                     const episodeNumber = cumulativeEpisodeCount + episodeIndex;
                     const episodeLink = generateEpisodeLink(movie.title, episodeNumber, movie.vjName);
-                    listItem.innerHTML = `<a href="${episodeLink}">${generateEpisodeName(season.seasonNumber, episodeIndex)}</a>`;
+
+                    const episodeNameElement = document.createElement("span");
+                    episodeNameElement.textContent = generateEpisodeName(season.seasonNumber, episodeIndex);
+
+                    listItem.appendChild(episodeNameElement);
+
+                    if (episodeLink) {
+                        const episodeLinkElement = document.createElement("a");
+                        episodeLinkElement.href = episodeLink;
+
+                        const watchButton = document.createElement("button");
+                        watchButton.className = "btn btn-success btn-sm ml-2";
+                        watchButton.textContent = "Watch";
+                        watchButton.addEventListener("click", () => {
+                            window.open(episodeLink, "_blank");
+                        });
+
+                        const downloadButton = document.createElement("button");
+                        downloadButton.className = "btn btn-primary btn-sm ml-2";
+                        downloadButton.textContent = "Download";
+                        downloadButton.addEventListener("click", () => {
+                            window.location.href = episodeLink;
+                        });
+
+                        listItem.appendChild(document.createTextNode(" "));
+                        listItem.appendChild(episodeLinkElement);
+                        listItem.appendChild(document.createTextNode(" "));
+                        listItem.appendChild(watchButton);
+                        listItem.appendChild(document.createTextNode(" "));
+                        listItem.appendChild(downloadButton);
+                    }
+
                     modal.find("#modal-episode-list").append(listItem);
                 }
             });
