@@ -133,6 +133,8 @@
     }
 ];
 
+
+
 $('#movieModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget);
     const movieIndex = button.data('movie-index');
@@ -152,11 +154,18 @@ $('#movieModal').on('show.bs.modal', function (event) {
             seasonButton.textContent = `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`;
             seasonButton.addEventListener('click', () => {
                 modal.find("#modal-episode-list").empty();
+
+                let cumulativeEpisodeCount = 0;
+                for (let i = 0; i < seasonIndex; i++) {
+                    cumulativeEpisodeCount += movie.seasons[i].episodeCount;
+                }
+
                 for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
                     const listItem = document.createElement('li');
                     listItem.className = 'list-group-item';
-                    const episodeLink = generateEpisodeLink(movie.title, season.seasonNumber, episodeIndex, movie.vjName);
-                    listItem.innerHTML = `<a href="${episodeLink}">Episode ${episodeIndex}</a>`;
+                    const episodeNumber = cumulativeEpisodeCount + episodeIndex;
+                    const episodeLink = generateEpisodeLink(movie.title, episodeNumber, movie.vjName);
+                    listItem.innerHTML = `<a href="${episodeLink}">${generateEpisodeName(season.seasonNumber, episodeIndex)}</a>`;
                     modal.find("#modal-episode-list").append(listItem);
                 }
             });
@@ -171,7 +180,6 @@ $('#movieModal').on('show.bs.modal', function (event) {
     }
 });
 
-
 const movieList = document.getElementById("movie-list");
 const searchInput = document.getElementById("searchInput");
 const nextPageButton = document.getElementById("next-page");
@@ -180,21 +188,20 @@ const prevPageButton = document.getElementById("prev-page");
 let currentPage = 1;
 const moviesPerPage = 12;
 
-// Generate episode link based on season, episode number, and increment
-function generateEpisodeLink(title, seasonIndex, episodeNumber, vjName) {
+// Modify the existing function to generate episode links based on cumulative episode count
+function generateEpisodeLink(title, episodeNumber, vjName) {
     const baseUrl = "http://95.169.196.50/downloadserie.php";
     const encodedTitle = encodeURIComponent(title);
-    let epsId = 41527 + seasonIndex * 100 + episodeNumber;
 
-    // Calculate the episode ID based on the last episode of the previous seasons
-    for (let i = 0; i < seasonIndex; i++) {
-        epsId += seriesData[i].seasons.reduce((totalEpisodes, season) => totalEpisodes + season.episodeCount, 0);
-    }
+    const epsId = episodeNumber;
 
     const episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20${vjName}.mp4&eps_id=${epsId}`;
     return episodeUrl;
 }
 
+function generateEpisodeName(seasonNumber, episodeIndex) {
+    return `Season ${seasonNumber} Episode ${episodeIndex}`;
+}
 
 
 function renderMovies(page) {
