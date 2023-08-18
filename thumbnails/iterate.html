@@ -238,7 +238,7 @@ scrollToTopButton.addEventListener("click", () => {
     if (filteredMovies.length === 0) {
         const noResultsMessage = document.createElement("div");
         noResultsMessage.className = "col-12 text-center my-5";
-        noResultsMessage.textContent = "No results found.";
+        noResultsMessage.textContent = "No results found! Please try again with a different keyword...";
         movieList.appendChild(noResultsMessage);
     } else {
         for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
