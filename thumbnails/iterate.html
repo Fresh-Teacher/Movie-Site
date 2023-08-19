@@ -35,6 +35,13 @@
     margin-top: 20px;
 }
 
+/* Style for the video element within the video modal */
+#videoPlayer {
+    max-width: 100%;
+    height: auto;
+}
+
+
     </style>
 </head>
 <body>
@@ -237,7 +244,7 @@ const moviesPerPage = 12;
 // Modify the existing function to generate episode links based on cumulative episode count
 // Function to generate episode video sources
 function generateEpisodeSource(title, episodeNumber, vjName) {
-    const baseUrl = "http://95.169.196.50/downloadserie.php";
+    const baseUrl = "https://95.169.196.50/downloadserie.php";
     const encodedTitle = encodeURIComponent(title);
     const epsId = episodeNumber;
 
@@ -248,11 +255,18 @@ function generateEpisodeSource(title, episodeNumber, vjName) {
 // Function to open video in the modal
 function openVideoModal(videoSource) {
     const videoPlayer = document.getElementById("videoPlayer");
+
+    // Reset the video player by pausing and setting currentTime to 0
+    videoPlayer.pause();
+    videoPlayer.currentTime = 0;
+
+    // Set the new video source
     videoPlayer.src = videoSource;
 
     // Show the video modal
     $("#videoModal").modal("show");
 }
+
 
 
 function generateEpisodeName(seasonNumber, episodeIndex) {
