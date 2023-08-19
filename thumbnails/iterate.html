@@ -90,13 +90,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <!-- Add a video element with an ID to display the video player -->
                     <video id="videoPlayer" controls autoplay>
-                        <!-- Video source will be added dynamically -->
+                        Your browser does not support the video tag.
                     </video>
                 </div>
             </div>
         </div>
     </div>
+    
     
 
     <div class="scroll-to-top"> 🔝 </div>
@@ -170,54 +172,49 @@ $('#movieModal').on('show.bs.modal', function (event) {
             seasonButton.className = 'btn btn-secondary mr-2';
             seasonButton.textContent = `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`;
             seasonButton.addEventListener('click', () => {
-                modal.find("#modal-episode-list").empty();
+    modal.find("#modal-episode-list").empty();
 
-                let cumulativeEpisodeCount = 0;
-                for (let i = 0; i < seasonIndex; i++) {
-                    cumulativeEpisodeCount += movie.seasons[i].episodeCount;
-                }
+    let cumulativeEpisodeCount = 0;
+    for (let i = 0; i < seasonIndex; i++) {
+        cumulativeEpisodeCount += movie.seasons[i].episodeCount;
+    }
 
-                for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
-                    const listItem = document.createElement('li');
-                    listItem.className = 'list-group-item';
+    for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
 
-                    const episodeNumber = cumulativeEpisodeCount + episodeIndex;
-                    const episodeLink = generateEpisodeLink(movie.title, episodeNumber, movie.vjName);
+        const episodeNumber = cumulativeEpisodeCount + episodeIndex;
+        const episodeLink = generateEpisodeSource(movie.title, episodeNumber, movie.vjName); // Change function name here
 
-                    const episodeNameElement = document.createElement("span");
-                    episodeNameElement.textContent = generateEpisodeName(season.seasonNumber, episodeIndex);
+        const episodeNameElement = document.createElement("span");
+        episodeNameElement.textContent = generateEpisodeName(season.seasonNumber, episodeIndex);
 
-                    listItem.appendChild(episodeNameElement);
+        listItem.appendChild(episodeNameElement);
 
-                    if (episodeLink) {
-                        const episodeLinkElement = document.createElement("a");
-                        episodeLinkElement.href = episodeLink;
-
-                        const watchButton = document.createElement("button");
-                        watchButton.className = "btn btn-success btn-sm ml-2";
-                        watchButton.textContent = "Watch";
-                        watchButton.addEventListener("click", () => {
-                            window.open(episodeLink, "_blank");
-                        });
-
-                        const downloadButton = document.createElement("button");
-                        downloadButton.className = "btn btn-primary btn-sm ml-2";
-                        downloadButton.textContent = "Download";
-                        downloadButton.addEventListener("click", () => {
-                            window.location.href = episodeLink;
-                        });
-
-                        listItem.appendChild(document.createTextNode(" "));
-                        listItem.appendChild(episodeLinkElement);
-                        listItem.appendChild(document.createTextNode(" "));
-                        listItem.appendChild(watchButton);
-                        listItem.appendChild(document.createTextNode(" "));
-                        listItem.appendChild(downloadButton);
-                    }
-
-                    modal.find("#modal-episode-list").append(listItem);
-                }
+        if (episodeLink) {
+            const watchButton = document.createElement("button");
+            watchButton.className = "btn btn-success btn-sm ml-2";
+            watchButton.textContent = "Watch";
+            watchButton.addEventListener("click", () => {
+                openVideoModal(episodeLink); // Change function name here
             });
+
+            const downloadButton = document.createElement("button");
+            downloadButton.className = "btn btn-primary btn-sm ml-2";
+            downloadButton.textContent = "Download";
+            downloadButton.addEventListener("click", () => {
+                window.location.href = episodeLink;
+            });
+
+            listItem.appendChild(document.createTextNode(" "));
+            listItem.appendChild(watchButton);
+            listItem.appendChild(document.createTextNode(" "));
+            listItem.appendChild(downloadButton);
+        }
+
+        modal.find("#modal-episode-list").append(listItem);
+    }
+});
             seasonButtons.append(seasonButton);
         });
     } else {
@@ -238,15 +235,25 @@ let currentPage = 1;
 const moviesPerPage = 12;
 
 // Modify the existing function to generate episode links based on cumulative episode count
-function generateEpisodeLink(title, episodeNumber, vjName) {
+// Function to generate episode video sources
+function generateEpisodeSource(title, episodeNumber, vjName) {
     const baseUrl = "http://95.169.196.50/downloadserie.php";
     const encodedTitle = encodeURIComponent(title);
-
     const epsId = episodeNumber;
 
     const episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20${vjName}.mp4&eps_id=${epsId}`;
     return episodeUrl;
 }
+
+// Function to open video in the modal
+function openVideoModal(videoSource) {
+    const videoPlayer = document.getElementById("videoPlayer");
+    videoPlayer.src = videoSource;
+
+    // Show the video modal
+    $("#videoModal").modal("show");
+}
+
 
 function generateEpisodeName(seasonNumber, episodeIndex) {
     return `Season ${seasonNumber} Episode ${episodeIndex}`;
