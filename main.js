@@ -33,7 +33,7 @@ fetch('home.json')
         statusDiv.classList.add("movie-status");
 
         // Check if movie is translated or untranslated
-        if (!data[i].href || !data[i].href.startsWith("http")) {
+        if (!data[i].href || !data[i].href.startsWith("https")) {
             statusDiv.innerHTML = "Untranslated";
         } else {
             statusDiv.innerHTML = "Translated";
@@ -97,7 +97,7 @@ fetch('home.json')
         video.style.display = "none";
         div3.appendChild(video);
 
-        if (!data[i].href || !data[i].href.startsWith("http")) {
+        if (!data[i].href || !data[i].href.startsWith("https")) {
           let untranslatedText = document.createElement("p");
           untranslatedText.textContent =
             "The translated version of this movie is not yet available but it will be available soon. At the moment, you may watch the untranslated movie.";
@@ -242,7 +242,7 @@ if (filteredMovies.length === 0) {
           statusDiv.classList.add("movie-status");
 
           // Check if the movie is translated or untranslated
-          if (!movie.href || !movie.href.startsWith("http")) {
+          if (!movie.href || !movie.href.startsWith("https")) {
             statusDiv.innerHTML = "Untranslated";
           } else {
             statusDiv.innerHTML = "Translated";
@@ -317,7 +317,7 @@ document.getElementById("searchInput").addEventListener("input", searchMovies);
     video.style.display = "none";
     div3.appendChild(video);
   
-    if (!movie.href || !movie.href.startsWith("http")) {
+    if (!movie.href || !movie.href.startsWith("https")) {
       let untranslatedText = document.createElement("p");
       untranslatedText.textContent =
         "The translated version of this movie is not yet available but it will be available soon. At the moment, you may watch the untranslated movie.";
