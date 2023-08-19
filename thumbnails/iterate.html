@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -97,14 +97,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Add a video element with an ID to display the video player -->
-                    <video id="videoPlayer" controls autoplay>
+                    <video id="videoPlayer" controls autoplay style="width: 100%;">
                         Your browser does not support the video tag.
                     </video>
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
     
     
 
@@ -254,18 +253,20 @@ function generateEpisodeSource(title, episodeNumber, vjName) {
 
 // Function to open video in the modal
 function openVideoModal(videoSource) {
-    const videoPlayer = document.getElementById("videoPlayer");
-
-    // Reset the video player by pausing and setting currentTime to 0
-    videoPlayer.pause();
-    videoPlayer.currentTime = 0;
-
-    // Set the new video source
-    videoPlayer.src = videoSource;
+    const videoPlayerModal = document.getElementById("videoPlayer");
+    videoPlayerModal.src = videoSource;
 
     // Show the video modal
     $("#videoModal").modal("show");
+
+    // Add an event listener to the video modal's hidden event
+    $('#videoModal').on('hidden.bs.modal', function () {
+        // Pause the video and reset its source
+        videoPlayerModal.pause();
+        videoPlayerModal.src = "";
+    });
 }
+
 
 
 
