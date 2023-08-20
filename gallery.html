@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Photo Gallery</title>
+  <style>
+    body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.gallery {
+  width: 80%;
+  max-width: 800px;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider {
+  display: flex;
+  width: 300%; /* 100% * number of images */
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+  </style>
+</head>
+<body>
+    <div class="gallery">
+        <div class="slider">
+          <img src="FUBAR-2023.jpgh380w250atzc1.jpg" alt="Image 1">
+          <img src="Game20of20Thrones202011-2019.jpgh380w250atzc1.jpg" alt="Image 2">
+          <img src="Gangs20of20London20-20Season202.jpgh380w250atzc1.jpg" alt="Image 3">
+          <!-- Add more images here -->
+        </div>
+      </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script>
+   const slider = document.querySelector('.slider');
+let isDragging = false;
+let startPos = 0;
+let currentTranslate = 0;
+let prevTranslate = 0;
+
+slider.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startPos = e.clientX;
+  slider.style.transition = 'none';
+  prevTranslate = currentTranslate;
+});
+
+slider.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  const distance = e.clientX - startPos;
+  currentTranslate = prevTranslate + distance;
+  slider.style.transform = `translateX(${currentTranslate}px)`;
+});
+
+slider.addEventListener('mouseup', () => {
+  isDragging = false;
+  const movedBy = currentTranslate - prevTranslate;
+  if (movedBy < -50) {
+    // Swipe right
+  } else if (movedBy > 50) {
+    // Swipe left
+  }
+  slider.style.transition = 'transform 0.5s ease-in-out';
+  slider.style.transform = `translateX(${prevTranslate}px)`;
+});
+
+slider.addEventListener('mouseleave', () => {
+  isDragging = false;
+  slider.style.transition = 'transform 0.5s ease-in-out';
+  slider.style.transform = `translateX(${prevTranslate}px)`;
+});
+
+  </script>
+</body>
+</html>
