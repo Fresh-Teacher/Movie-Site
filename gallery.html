@@ -3,79 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Gallery</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <title>Fresh Teacher's Video Library</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Add your custom styles here */
+ .scroll-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+
+        .card {
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center items horizontally */
+        text-align: center; /* Center text content */
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .container.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Style for the video element within the video modal */
+#videoPlayer {
+    max-width: 100%;
+    height: auto;
+}
+
+
     </style>
 </head>
 <body>
-    <div class="container mt-4">
-        <div id="photoGallery" class="row">
-            <!-- Photos will be added here dynamically -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Fresh Teacher's Video Library</a>
+            <form class="form-inline ml-auto">
+                <input class="form-control mr-sm-2" type="search" id="searchInput" placeholder="Search for Movies..." aria-label="Search">
+            </form>
+        </div>
+    </nav><br><br><br>
+
+    <div class="container mt-5">
+        <div class="row" id="movie-list">
+            <!-- Movie cards will be populated here by JavaScript -->
+        </div>
+        <div class="container text-center mt-3">
+            <button id="prev-page" class="btn btn-primary">Previous</button>
+            <span id="page-info" class="mx-3"></span>
+            <button id="next-page" class="btn btn-primary">Next</button>
+        </div>          
+     </div><br><br>
+
+    <div class="modal fade" id="movieModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Movie Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6 id="modal-movie-title"></h6>
+                    <div class="btn-group mb-3" id="modal-season-buttons">
+                        <!-- Season buttons will be populated here by JavaScript -->
+                    </div>
+                    <ul class="list-group" id="modal-episode-list">
+                        <!-- Episode links will be populated here by JavaScript -->
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Watch Video</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <video id="videoPlayer" controls autoplay style="width: 100%;">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div> 
+        </div>
+    </div>    
+    
+    
+
+    <div class="scroll-to-top"> 🔝 </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        const photos = [
-        "Gracious20Revenge.jpgh380w250atzc1.jpg",
-                    "Handsome20Siblings.jpgh380w250atzc1.jpg",
-                    "Hanna202019.jpgh380w250atzc1.jpg",
-                    "Harpers20Island.jpgh380w250atzc1.jpg",
-                    "heroesposter1.jpgh380w250atzc1.jpg",
-                    "Gold20Mask202022.jpgh380w250atzc1.jpg",
-                    "Gracious20Revenge.jpgh380w250atzc1.jpg",
-                    "Handsome20Siblings.jpgh380w250atzc1.jpg",
-                    "Hanna202019.jpgh380w250atzc1.jpg",
-                    "Harpers20Island.jpgh380w250atzc1.jpg",
-                    "heroesposter1.jpgh380w250atzc1.jpg",
-                    "Gold20Mask202022.jpgh380w250atzc1.jpg",    
-                    "Gracious20Revenge.jpgh380w250atzc1.jpg",
-                    "Handsome20Siblings.jpgh380w250atzc1.jpg",
-                    "Hanna202019.jpgh380w250atzc1.jpg",
-                    "Harpers20Island.jpgh380w250atzc1.jpg",
-                    "heroesposter1.jpgh380w250atzc1.jpg",
-                    "Gold20Mask202022.jpgh380w250atzc1.jpg",
-                    "Gracious20Revenge.jpgh380w250atzc1.jpg",
-                    "Handsome20Siblings.jpgh380w250atzc1.jpg",
-                    "Hanna202019.jpgh380w250atzc1.jpg",
-                    "Harpers20Island.jpgh380w250atzc1.jpg",
-                    "heroesposter1.jpgh380w250atzc1.jpg",
-                    "Gold20Mask202022.jpgh380w250atzc1.jpg",       
-                    "Gracious20Revenge.jpgh380w250atzc1.jpg",
-                    "Handsome20Siblings.jpgh380w250atzc1.jpg",
-                    "Hanna202019.jpgh380w250atzc1.jpg",
-                    "Harpers20Island.jpgh380w250atzc1.jpg",
-                    "heroesposter1.jpgh380w250atzc1.jpg",
-                    "Gold20Mask202022.jpgh380w250atzc1.jpg",
-                    "Gracious20Revenge.jpgh380w250atzc1.jpg",
-                    "Handsome20Siblings.jpgh380w250atzc1.jpg",
-                    "Hanna202019.jpgh380w250atzc1.jpg",
-                    "Harpers20Island.jpgh380w250atzc1.jpg",
-                    "heroesposter1.jpgh380w250atzc1.jpg",
-                    "Gold20Mask202022.jpgh380w250atzc1.jpg",        ];
+ const seriesData = [
+ {
+    "title": "Fake Princess",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Fake%20Princess/Fake%20Princess%201%20by%20Vj%20Kam.mp4&eps_id=41544" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 20
+            }
+        ],
+        "vjName": "Vj Kam",
+        "thumbnail": "Fake20Princess202020.jpgh380w250atzc1.jpg"
+  },
+  {
+    "title": "Fauda",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Fauda/Fauda%201%20by%20Vj%20Little%20T.mp4" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 12
+            }
+        ],
+        "vjName": "Vj Little T",
+        "thumbnail": "Fauda202015.jpgh380w250atzc1.jpg"
+  },
+  {
+    "title": "Fishbowl Wives",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Fishbowl%20Wives/Fishbowl%20Wives%201%20by%20Vj%20Lance.mp4" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 8
+            }
+        ],
+        "vjName": "Vj Lance",
+        "thumbnail": "Fishbowl20Wives202022.jpgh380w250atzc1.jpg"
+  }
+];
 
-        const galleryContainer = document.getElementById('photoGallery');
 
-        function loadPhotos() {
-            photos.forEach((photoURL, index) => {
-                const photoCard = `
-                    <div class="col-md-3 mb-4">
-                        <a href="${photoURL}" data-fancybox="gallery" data-caption="Photo ${index + 1}" data-group="all-photos">
-                            <div class="card">
-                                <img src="${photoURL}" class="card-img-top" alt="Photo">
-                            </div>
-                        </a>
+// Function to filter movies based on search input
+function filterMoviesBySearch(searchTerm) {
+    return seriesData.filter(movie =>
+        movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+}
+
+searchInput.addEventListener("input", () => {
+    const searchTerm = searchInput.value.trim();
+    currentPage = 1;
+
+    if (searchTerm === "") {
+        renderMovies(currentPage);
+    } else {
+        const filteredMovies = filterMoviesBySearch(searchTerm);
+        renderMoviesWithSearch(filteredMovies);
+    }
+});
+
+function renderMoviesWithSearch(filteredMovies) {
+    movieList.innerHTML = ""; // Clear existing content
+
+    if (filteredMovies.length === 0) {
+        const noResultsMessage = document.createElement("div");
+        noResultsMessage.className = "col-12 text-center my-5";
+        noResultsMessage.textContent = "No results found! Please try again with a different keyword...";
+        movieList.appendChild(noResultsMessage);
+    } else {
+        for (let i = 0; i < filteredMovies.length; i++) {
+            const movie = filteredMovies[i];
+
+            const movieCard = document.createElement("div");
+            movieCard.className = "col-md-4 mb-4";
+
+            movieCard.innerHTML = `
+                <div class="card" data-toggle="modal" data-target="#movieModal" data-movie-index="${i}">
+                    <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${movie.title.toUpperCase()}</h5>
                     </div>
-                `;
-                galleryContainer.innerHTML += photoCard;
+                </div>
+            `;
+
+            movieList.appendChild(movieCard);
+        }
+    }
+
+    document.getElementById("page-info").textContent = `Search results`;
+
+    nextPageButton.style.display = "none";
+    prevPageButton.style.display = "none";
+
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
+}
+$('#movieModal').on('show.bs.modal', function (event) {
+    const button = $(event.relatedTarget);
+    const movieIndex = button.data('movie-index');
+    const movie = seriesData[movieIndex];
+
+    const modal = $(this);
+    modal.find("#modal-movie-title").text(movie.title);
+    modal.find("#modal-episode-list").empty();
+
+    const seasonButtons = modal.find("#modal-season-buttons");
+    seasonButtons.empty();
+
+    if (movie.seasons && movie.seasons.length > 0) {
+        movie.seasons.forEach((season, seasonIndex) => {
+            const seasonButton = document.createElement('button');
+            seasonButton.className = 'btn btn-secondary mr-2';
+            seasonButton.textContent = `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`;
+            seasonButton.addEventListener('click', () => {
+    modal.find("#modal-episode-list").empty();
+
+    let cumulativeEpisodeCount = 0;
+    for (let i = 0; i < seasonIndex; i++) {
+        cumulativeEpisodeCount += movie.seasons[i].episodeCount;
+    }
+
+    for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+
+        const episodeNumber = cumulativeEpisodeCount + episodeIndex;
+        const episodeLink = generateEpisodeSource(movie.title, episodeNumber, movie.vjName); // Change function name here
+
+        const episodeNameElement = document.createElement("span");
+        episodeNameElement.textContent = generateEpisodeName(season.seasonNumber, episodeIndex);
+
+        listItem.appendChild(episodeNameElement);
+
+        if (episodeLink) {
+            const watchButton = document.createElement("button");
+            watchButton.className = "btn btn-success btn-sm ml-2";
+            watchButton.textContent = "Watch";
+            watchButton.addEventListener("click", () => {
+                openVideoModal(episodeLink); // Change function name here
             });
+
+            const downloadButton = document.createElement("button");
+            downloadButton.className = "btn btn-primary btn-sm ml-2";
+            downloadButton.textContent = "Download";
+            downloadButton.addEventListener("click", () => {
+                window.location.href = episodeLink;
+            });
+
+            listItem.appendChild(document.createTextNode(" "));
+            listItem.appendChild(watchButton);
+            listItem.appendChild(document.createTextNode(" "));
+            listItem.appendChild(downloadButton);
         }
 
-        loadPhotos();
-    </script>
+        modal.find("#modal-episode-list").append(listItem);
+    }
+});
+            seasonButtons.append(seasonButton);
+        });
+    } else {
+        // Handle case where no seasons data is available
+        const noSeasonsMessage = document.createElement('div');
+        noSeasonsMessage.className = 'col-12 text-center my-3';
+        noSeasonsMessage.textContent = 'No seasons available for this movie.';
+        seasonButtons.append(noSeasonsMessage);
+    }
+});
+
+const movieList = document.getElementById("movie-list");
+const searchInput = document.getElementById("searchInput");
+const nextPageButton = document.getElementById("next-page");
+const prevPageButton = document.getElementById("prev-page");
+
+let currentPage = 1;
+const moviesPerPage = 12;
+
+// Modify the existing function to generate episode links based on cumulative episode count
+// Function to generate episode video sources
+function generateEpisodeSource(title, episodeNumber, vjName) {
+    const baseUrl = "https://mobifliks.info/downloadserie.php";
+    const encodedTitle = encodeURIComponent(title);
+    const epsId = episodeNumber;
+
+    const episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20${vjName}.mp4&eps_id=${epsId}`;
+    return episodeUrl;
+}
+
+// Function to open video in the modal
+function openVideoModal(videoSource) {
+    const videoPlayerModal = document.getElementById("videoPlayer");
+    videoPlayerModal.src = videoSource;
+
+    // Show the video modal
+    $("#videoModal").modal("show");
+
+    // Add an event listener to the video modal's hidden event
+    $('#videoModal').on('hidden.bs.modal', function () {
+        // Pause the video and reset its source
+        videoPlayerModal.pause();
+        videoPlayerModal.src = "";
+    });
+}
+
+
+
+
+function generateEpisodeName(seasonNumber, episodeIndex) {
+    return `Season ${seasonNumber} Episode ${episodeIndex}`;
+}
+
+
+function renderMovies(page) {
+    const startIndex = (page - 1) * moviesPerPage;
+    const endIndex = startIndex + moviesPerPage;
+
+    const filteredMovies = seriesData.filter(movie =>
+        movie.title.toLowerCase().includes(searchInput.value.toLowerCase())
+    );
+
+    movieList.innerHTML = ""; // Clear existing content
+
+    // Add a click event listener to the scroll-to-top button
+const scrollToTopButton = document.querySelector(".scroll-to-top");
+
+// Function to show or hide the scroll-to-top button
+function toggleScrollToTopButton() {
+    if (window.scrollY > 300) {
+        scrollToTopButton.style.display = "block";
+    } else {
+        scrollToTopButton.style.display = "none";
+    }
+}
+
+// Add a scroll event listener to toggle the button visibility
+window.addEventListener("scroll", toggleScrollToTopButton);
+
+scrollToTopButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top smoothly
+});
+
+
+
+    if (filteredMovies.length === 0) {
+        const noResultsMessage = document.createElement("div");
+        noResultsMessage.className = "col-12 text-center my-5";
+        noResultsMessage.textContent = "No results found! Please try again with a different keyword...";
+        movieList.appendChild(noResultsMessage);
+    } else {
+        for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
+    const movie = filteredMovies[i];
+
+    const movieCard = document.createElement("div");
+    movieCard.className = "col-md-4 mb-4";
+
+    movieCard.innerHTML = `
+        <div class="card" data-toggle="modal" data-target="#movieModal" data-movie-index="${i}">
+            <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
+            <div class="card-body">
+                <h5 class="card-title">${movie.title.toUpperCase()}</h5> <!-- Capitalize title -->
+            </div>
+        </div>
+    `;
+
+    movieList.appendChild(movieCard);
+}
+    }
+
+    const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
+    document.getElementById("page-info").textContent = `Page ${currentPage} of ${totalPages}`;
+
+    if (totalPages === 1) {
+        nextPageButton.style.display = "none";
+        prevPageButton.style.display = "none";
+    } else {
+        nextPageButton.style.display = currentPage === totalPages ? "none" : "block";
+        prevPageButton.style.display = currentPage === 1 ? "none" : "block";
+    }
+
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
+}
+
+renderMovies(currentPage);
+
+searchInput.addEventListener("input", () => {
+    currentPage = 1;
+    renderMovies(currentPage);
+});
+
+nextPageButton.addEventListener("click", () => {
+    currentPage++;
+    renderMovies(currentPage);
+});
+
+prevPageButton.addEventListener("click", () => {
+    currentPage--;
+    renderMovies(currentPage);
+});
+
+$('#videoModal').on('hidden.bs.modal', function () {
+    // Remove the modal-open class from the body
+    $('body').removeClass('modal-open');
+    // Reset the body's overflow property to its original value
+    $('body').css('overflow', 'auto');
+});
+</script>
 </body>
 </html>
