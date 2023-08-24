@@ -113,8 +113,19 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-
-const seriesData = [
+ const seriesData = [
+ {
+    "title": "Squid Game",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Squid%20Game/Squid%20Game%201%20by%20Vj%20Junior.mp4" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 9
+            }
+        ],
+        "vjName": "Vj Junior",
+        "thumbnail": "Squid20Game202021.jpgh380w250atzc1.jpg"
+  },
 {
     "title": "Sweet Tooth",
     "href": "https://mobifliks.info/downloadserie.php?file=luganda/sweettooth/SWEET TOOTH 1.mp4" ,
@@ -163,72 +174,71 @@ $('#movieModal').on('show.bs.modal', function (event) {
     const movie = seriesData[movieIndex];
 
     const modal = $(this);
-    const modalMovieTitle = modal.find("#modal-movie-title");
-    const modalEpisodeList = modal.find("#modal-episode-list");
+    modal.find("#modal-movie-title").text(movie.title);
+    modal.find("#modal-episode-list").empty();
+
     const seasonButtons = modal.find("#modal-season-buttons");
-    
-    modalMovieTitle.text(movie.title);
-    modalEpisodeList.empty();
     seasonButtons.empty();
 
     if (movie.seasons && movie.seasons.length > 0) {
-        movie.seasons.forEach((season) => {
-            const seasonButton = $('<button>', {
-                class: 'btn btn-secondary mr-2',
-                text: `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`
-            }).click(() => {
-                modalEpisodeList.empty();
+        movie.seasons.forEach((season, seasonIndex) => {
+            const seasonButton = document.createElement('button');
+            seasonButton.className = 'btn btn-secondary mr-2';
+            seasonButton.textContent = `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`;
+            seasonButton.addEventListener('click', () => {
+    modal.find("#modal-episode-list").empty();
 
-                for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
-                    const episodeLink = generateEpisodeLink(movie.href, season.seasonNumber, episodeIndex);
-                    const episodeName = generateEpisodeName(season.seasonNumber, episodeIndex);
+    let cumulativeEpisodeCount = 0;
+    for (let i = 0; i < seasonIndex; i++) {
+        cumulativeEpisodeCount += movie.seasons[i].episodeCount;
+    }
 
-                    const listItem = $('<li>', {
-                        class: 'list-group-item',
-                        text: episodeName
-                    });
+    for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
 
-                    if (episodeLink) {
-                        const watchButton = $('<button>', {
-                            class: 'btn btn-success btn-sm ml-2',
-                            text: 'Watch'
-                        }).click(() => {
-                            openVideoModal(episodeLink);
-                        });
+        const episodeNumber = cumulativeEpisodeCount + episodeIndex;
+        const episodeLink = generateEpisodeSource(movie.title, episodeNumber, movie.vjName); // Change function name here
 
-                        const downloadButton = $('<button>', {
-                            class: 'btn btn-primary btn-sm ml-2',
-                            text: 'Download'
-                        }).click(() => {
-                            window.location.href = episodeLink;
-                        });
+        const episodeNameElement = document.createElement("span");
+        episodeNameElement.textContent = generateEpisodeName(season.seasonNumber, episodeIndex);
 
-                        listItem.append(' ');
-                        listItem.append(watchButton);
-                        listItem.append(' ');
-                        listItem.append(downloadButton);
-                    }
+        listItem.appendChild(episodeNameElement);
 
-                    modalEpisodeList.append(listItem);
-                }
+        if (episodeLink) {
+            const watchButton = document.createElement("button");
+            watchButton.className = "btn btn-success btn-sm ml-2";
+            watchButton.textContent = "Watch";
+            watchButton.addEventListener("click", () => {
+                openVideoModal(episodeLink); // Change function name here
             });
 
+            const downloadButton = document.createElement("button");
+            downloadButton.className = "btn btn-primary btn-sm ml-2";
+            downloadButton.textContent = "Download";
+            downloadButton.addEventListener("click", () => {
+                window.location.href = episodeLink;
+            });
+
+            listItem.appendChild(document.createTextNode(" "));
+            listItem.appendChild(watchButton);
+            listItem.appendChild(document.createTextNode(" "));
+            listItem.appendChild(downloadButton);
+        }
+
+        modal.find("#modal-episode-list").append(listItem);
+    }
+});
             seasonButtons.append(seasonButton);
         });
     } else {
-        const noSeasonsMessage = $('<div>', {
-            class: 'col-12 text-center my-3',
-            text: 'No seasons available for this movie.'
-        });
+        // Handle case where no seasons data is available
+        const noSeasonsMessage = document.createElement('div');
+        noSeasonsMessage.className = 'col-12 text-center my-3';
+        noSeasonsMessage.textContent = 'No seasons available for this movie.';
         seasonButtons.append(noSeasonsMessage);
     }
 });
-
-
-// Function to generate episode link
-function generateEpisodeLink(baseLink, seasonNumber, episodeNumber) {
-    return `${baseLink}${seasonNumber}_${episodeNumber}.mp4`;
-}
 
 const movieList = document.getElementById("movie-list");
 const searchInput = document.getElementById("searchInput");
@@ -237,6 +247,31 @@ const prevPageButton = document.getElementById("prev-page");
 
 let currentPage = 1;
 const moviesPerPage = 12;
+
+// Function to generate episode video sources
+function generateEpisodeSource(title, episodeNumber, vjName) {
+    const baseUrl = "https://mobifliks.info/downloadserie.php";
+    const encodedTitle = encodeURIComponent(title);
+    const epsId = episodeNumber;
+
+    // Customize the URL generation based on specific movie patterns
+    let episodeUrl;
+
+    // Check if the movie title follows a specific pattern
+    if (title === "Squid Game") {
+        episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20${vjName}.mp4`;
+    } else if (title === "Sweet Tooth") {
+        episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}.mp4`;
+    } else if (title === "Vikings Valhala" || title === "Ms. Marvel") {
+        episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20${vjName}.mp4`;
+    } else {
+        // Default format for other movies
+        episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20${vjName}.mp4`;
+    }
+
+    return episodeUrl;
+}
+
 
 // Function to open video in the modal
 function openVideoModal(videoSource) {
@@ -310,6 +345,7 @@ scrollToTopButton.addEventListener("click", () => {
             <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
             <div class="card-body">
                 <h5 class="card-title">${movie.title.toUpperCase()}</h5> <!-- Capitalize title -->
+                <p class="card-text">Translated by ${movie.vjName}</p>
             </div>
         </div>
     `;

@@ -6279,9 +6279,7 @@ const moviesPerPage = 12;
 function generateEpisodeSource(title, episodeNumber, vjName) {
     const baseUrl = "https://mobifliks.info/downloadserie.php";
     const encodedTitle = encodeURIComponent(title);
-    const epsId = episodeNumber;
-
-    const episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20${vjName}.mp4&eps_id=${epsId}`;
+    const episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20${vjName}.mp4`;
     return episodeUrl;
 }
 

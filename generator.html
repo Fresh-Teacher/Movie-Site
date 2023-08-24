@@ -1,57 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Episode Dynamic Link Generator</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-  }
-  .card {
-    margin: 20px;
-    border: none;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-  }
-  .card:hover {
-    transform: scale(1.05);
-  }
-  .card-img-top {
-    height: 250px;
-    object-fit: cover;
-  }
-</style>
+    <title>TV Show Episodes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <!-- Your JSON data goes here -->
-  </div>
-</div>
-<div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="movieModalLabel">Movie Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h6 id="seasonTitle" style="display: none;">Select a Season:</h6>
-        <div id="seasonButtons"></div>
-        <div id="episodeContainer"></div>
-      </div>
+    <div class="container mt-5">
+        <h1>TV Show Episodes</h1>
+        <div class="row" id="shows">
+            <!-- Movie cards will be dynamically generated here -->
+        </div>
     </div>
-  </div>
-</div>
-<script>
-  const jsonData = [
-  {
+
+    <!-- Episode Modal -->
+    <div class="modal fade" id="episodeModal" tabindex="-1" role="dialog" aria-labelledby="episodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="episodeModalLabel">Episode List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="episode-list">
+                    <!-- Episode buttons will be dynamically generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Episode Modal -->
+    <script>
+        const showsData = [
+        {
     "title": "Sweet Tooth",
+    "format": "1",
     "href": "https://mobifliks.info/downloadserie.php?file=luganda/sweettooth/SWEET TOOTH 1.mp4" ,
     "seasons": [
             {
@@ -63,105 +48,93 @@
         "thumbnail": "Sweet20Tooth202021.jpgh380w250atzc1.jpg"
   },
   {
-    "title": "Vikings Valhala",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Vikings- Valhalla/Vikings- Valhalla 1 by Vj Kimuli.mp4",
+    "title": "The Brave",
+     "format": "1",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/thebrave/The Brave_01_1.mp4" ,
     "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodeCount": 16
-      },
-      {
-        "seasonNumber": 2,
-        "episodeCount": 7
-      }
-    ],
-    "vjName": "Vj Kimuli",
-    "thumbnail": "Vikings20Valhalla202022.jpgh380w250atzc1.jpg"
+            {
+                "seasonNumber": 1,
+                "episodeCount": 16
+            }
+        ],
+        "vjName": "",
+        "thumbnail": "The20Brave202017.jpgh380w250atzc1.jpg"
   },
   {
-    "title": "Ms. Marvel",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Ms Marvel/Ms. Marvel 1 by Vj Kevo - Mobifliks.com.mp4",
+    "title": "24 Japan",
+     "format": "1",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/24Japan/24 JAPAN 1.mp4" ,
     "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodeCount": 6
-      }
-    ],
-    "vjName": "Vj Kevo",
-    "thumbnail": "Ms.20Marvel202022.jpgh380w250atzc1.jpg"
-  }  ];
+            {
+                "seasonNumber": 1,
+                "episodeCount": 14
+            }
+        ],
+        "vjName": "Vj Sammy",
+        "thumbnail": "2420JAPAN.jpgh380w250atzc1.jpg"
+  },
+  {
+    "title": "Wu Assassins",
+    "format": "1",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/wuassasins/Wu Assassins_1.mp4" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 10
+            }
+        ],
+        "vjName": "",
+        "thumbnail": "Wu20Assassins202019-.jpgh380w250atzc1.jpg"
+  },
+  {
+    "title": "Walk Into Your Memory",
+    "format": "1",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/WalkIntoYourMemory/WALK INTO YOUR MEMORY 1.mp4" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 24
+            }
+        ],
+        "vjName": "",
+        "thumbnail": "WalkIntoYourMemory.jpgh380w250atzc1.jpg"
+  },         ];
 
-  const container = document.querySelector('.row');
-  const movieModal = document.querySelector('#movieModal');
-  const seasonTitle = document.querySelector('#seasonTitle');
-  const seasonButtons = document.querySelector('#seasonButtons');
-  const episodeContainer = document.querySelector('#episodeContainer');
+        function generateEpisodeLinks(show, season) {
+            const episodesDiv = document.getElementById('episode-list');
+            episodesDiv.innerHTML = '';
 
-  jsonData.forEach(movie => {
-    const card = document.createElement('div');
-    card.classList.add('col-md-4', 'col-lg-3');
+            for (let episodeNumber = 1; episodeNumber <= season.episodeCount; episodeNumber++) {
+                const episodeLink = show.href.replace(/\s/g, '%20').replace(/\/([^\/]*)$/, `/${show.title.replace(/\s/g, '%20')}/${show.title.replace(/\s/g, '%20')} ${episodeNumber}.mp4`);
 
-    card.innerHTML = `
-      <div class="card">
-        <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
-        <div class="card-body">
-          <h5 class="card-title">${movie.title}</h5>
-          <p class="card-text">${movie.vjName}</p>
-          <button class="btn btn-primary btn-seasons" data-movie='${JSON.stringify(movie)}'>Show Seasons</button>
-        </div>
-      </div>
-    `;
+                const episodeLinkText = document.createElement('p');
+                episodeLinkText.innerHTML = `<a href="${episodeLink}" target="_blank">Episode ${episodeNumber}</a>`;
+                episodesDiv.appendChild(episodeLinkText);
+            }
+        }
 
-    container.appendChild(card);
+        const showsDiv = document.getElementById('shows');
+        for (let i = 0; i < showsData.length; i++) {
+            const show = showsData[i];
 
-    const btnSeasons = card.querySelector('.btn-seasons');
-    btnSeasons.addEventListener('click', () => {
-      const selectedMovie = JSON.parse(btnSeasons.getAttribute('data-movie'));
-      displaySeasons(selectedMovie);
-    });
-  });
+            const movieCard = document.createElement('div');
+            movieCard.className = 'col-md-4 mb-4';
 
-  function displaySeasons(movie) {
-    seasonButtons.innerHTML = '';
-    seasonTitle.style.display = 'block';
-    episodeContainer.innerHTML = '';
+            const cardTemplate = `
+                <div class="card">
+                    <img src="${show.thumbnail}" class="card-img-top" alt="${show.title} Thumbnail">
+                    <div class="card-body">
+                        <h5 class="card-title">${show.title}</h5>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#episodeModal" onclick="generateEpisodeLinks(showsData[${i}], showsData[${i}].seasons[0])">
+                            View Episodes
+                        </button>
+                    </div>
+                </div>
+            `;
 
-    movie.seasons.forEach(season => {
-      const seasonButton = document.createElement('button');
-      seasonButton.classList.add('btn', 'btn-outline-secondary', 'btn-season');
-      seasonButton.innerText = `Season ${season.seasonNumber}`;
-      seasonButton.addEventListener('click', () => {
-        displayEpisodes(movie, season.seasonNumber, season.episodeCount);
-      });
-      seasonButtons.appendChild(seasonButton);
-    });
-
-    $(movieModal).modal('show');
-  }
-
-  function displayEpisodes(movie, seasonNumber, episodeCount) {
-    seasonTitle.style.display = 'none';
-    seasonButtons.innerHTML = '';
-
-    episodeContainer.innerHTML = `
-      <h6>Episodes for ${movie.title} - Season ${seasonNumber}:</h6>
-      <ul>
-        ${generateEpisodeLinks(movie, seasonNumber, episodeCount)}
-      </ul>
-    `;
-  }
-
-  function generateEpisodeLinks(movie, seasonNumber, episodeCount) {
-    let episodeLinks = '';
-    for (let i = 1; i <= episodeCount; i++) {
-      const episodeLink = `${movie.href.replace(/ \d+\.mp4/, ` ${i}.mp4`)}`;
-      episodeLinks += `<li><a href="${episodeLink}" target="_blank">Episode ${i}</a></li>`;
-    }
-    return episodeLinks;
-  }
-</script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            movieCard.innerHTML = cardTemplate;
+            showsDiv.appendChild(movieCard);
+        }
+    </script>
 </body>
 </html>
