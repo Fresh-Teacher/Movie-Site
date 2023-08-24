@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Teacher's Video Library</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+ .scroll-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+
+        .card {
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center items horizontally */
+        text-align: center; /* Center text content */
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .container.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Style for the video element within the video modal */
+#videoPlayer {
+    max-width: 100%;
+    height: auto;
+}
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Fresh Teacher's Video Library</a>
+            <form class="form-inline ml-auto">
+                <input class="form-control mr-sm-2" type="search" id="searchInput" placeholder="Search for Movies..." aria-label="Search">
+            </form>
+        </div>
+    </nav><br><br><br>
+
+    <div class="container mt-5">
+        <div class="row" id="movie-list">
+            <!-- Movie cards will be populated here by JavaScript -->
+        </div>
+        <div class="container text-center mt-3">
+            <button id="prev-page" class="btn btn-primary">Previous</button>
+            <span id="page-info" class="mx-3"></span>
+            <button id="next-page" class="btn btn-primary">Next</button>
+        </div>          
+     </div><br><br>
+
+    <div class="modal fade" id="movieModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Movie Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6 id="modal-movie-title"></h6>
+                    <div class="btn-group mb-3" id="modal-season-buttons">
+                        <!-- Season buttons will be populated here by JavaScript -->
+                    </div>
+                    <ul class="list-group" id="modal-episode-list">
+                        <!-- Episode links will be populated here by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Watch Video</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <video id="videoPlayer" controls autoplay style="width: 100%;">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div> 
+        </div>
+    </div>    
+    
+    
+
+    <div class="scroll-to-top"> 🔝 </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+
+const seriesData = [
+{
+    "title": "Sweet Tooth",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/sweettooth/SWEET TOOTH 1.mp4" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 8
+            }
+        ],
+        "vjName": "",
+        "thumbnail": "Sweet20Tooth202021.jpgh380w250atzc1.jpg"
+  },
+  {
+    "title": "Vikings Valhala",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Vikings- Valhalla/Vikings- Valhalla 1 by Vj Kimuli.mp4",
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "episodeCount": 16
+      },
+      {
+        "seasonNumber": 2,
+        "episodeCount": 7
+      }
+    ],
+    "vjName": "Vj Kimuli",
+    "thumbnail": "Vikings20Valhalla202022.jpgh380w250atzc1.jpg"
+  },
+  {
+    "title": "Ms. Marvel",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Ms Marvel/Ms. Marvel 1 by Vj Kevo - Mobifliks.com.mp4",
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "episodeCount": 6
+      }
+    ],
+    "vjName": "Vj Kevo",
+    "thumbnail": "Ms.20Marvel202022.jpgh380w250atzc1.jpg"
+  }
+];
+
+$('#movieModal').on('show.bs.modal', function (event) {
+    const button = $(event.relatedTarget);
+    const movieIndex = button.data('movie-index');
+    const movie = seriesData[movieIndex];
+
+    const modal = $(this);
+    const modalMovieTitle = modal.find("#modal-movie-title");
+    const modalEpisodeList = modal.find("#modal-episode-list");
+    const seasonButtons = modal.find("#modal-season-buttons");
+    
+    modalMovieTitle.text(movie.title);
+    modalEpisodeList.empty();
+    seasonButtons.empty();
+
+    if (movie.seasons && movie.seasons.length > 0) {
+        movie.seasons.forEach((season) => {
+            const seasonButton = $('<button>', {
+                class: 'btn btn-secondary mr-2',
+                text: `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`
+            }).click(() => {
+                modalEpisodeList.empty();
+
+                for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
+                    const episodeLink = generateEpisodeLink(movie.href, season.seasonNumber, episodeIndex);
+                    const episodeName = generateEpisodeName(season.seasonNumber, episodeIndex);
+
+                    const listItem = $('<li>', {
+                        class: 'list-group-item',
+                        text: episodeName
+                    });
+
+                    if (episodeLink) {
+                        const watchButton = $('<button>', {
+                            class: 'btn btn-success btn-sm ml-2',
+                            text: 'Watch'
+                        }).click(() => {
+                            openVideoModal(episodeLink);
+                        });
+
+                        const downloadButton = $('<button>', {
+                            class: 'btn btn-primary btn-sm ml-2',
+                            text: 'Download'
+                        }).click(() => {
+                            window.location.href = episodeLink;
+                        });
+
+                        listItem.append(' ');
+                        listItem.append(watchButton);
+                        listItem.append(' ');
+                        listItem.append(downloadButton);
+                    }
+
+                    modalEpisodeList.append(listItem);
+                }
+            });
+
+            seasonButtons.append(seasonButton);
+        });
+    } else {
+        const noSeasonsMessage = $('<div>', {
+            class: 'col-12 text-center my-3',
+            text: 'No seasons available for this movie.'
+        });
+        seasonButtons.append(noSeasonsMessage);
+    }
+});
+
+
+// Function to generate episode link
+function generateEpisodeLink(baseLink, seasonNumber, episodeNumber) {
+    return `${baseLink}${seasonNumber}_${episodeNumber}.mp4`;
+}
+
+const movieList = document.getElementById("movie-list");
+const searchInput = document.getElementById("searchInput");
+const nextPageButton = document.getElementById("next-page");
+const prevPageButton = document.getElementById("prev-page");
+
+let currentPage = 1;
+const moviesPerPage = 12;
+
+// Function to open video in the modal
+function openVideoModal(videoSource) {
+    const videoPlayerModal = document.getElementById("videoPlayer");
+    videoPlayerModal.src = videoSource;
+
+    // Show the video modal
+    $("#videoModal").modal("show");
+
+    // Add an event listener to the video modal's hidden event
+    $('#videoModal').on('hidden.bs.modal', function () {
+        // Pause the video and reset its source
+        videoPlayerModal.pause();
+        videoPlayerModal.src = "";
+    });
+}
+
+
+
+
+function generateEpisodeName(seasonNumber, episodeIndex) {
+    return `Season ${seasonNumber} Episode ${episodeIndex}`;
+}
+
+
+function renderMovies(page) {
+    const startIndex = (page - 1) * moviesPerPage;
+    const endIndex = startIndex + moviesPerPage;
+
+    const filteredMovies = seriesData.filter(movie =>
+        movie.title.toLowerCase().includes(searchInput.value.toLowerCase())
+    );
+
+    movieList.innerHTML = ""; // Clear existing content
+
+    // Add a click event listener to the scroll-to-top button
+const scrollToTopButton = document.querySelector(".scroll-to-top");
+
+// Function to show or hide the scroll-to-top button
+function toggleScrollToTopButton() {
+    if (window.scrollY > 300) {
+        scrollToTopButton.style.display = "block";
+    } else {
+        scrollToTopButton.style.display = "none";
+    }
+}
+
+// Add a scroll event listener to toggle the button visibility
+window.addEventListener("scroll", toggleScrollToTopButton);
+
+scrollToTopButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top smoothly
+});
+
+
+
+    if (filteredMovies.length === 0) {
+        const noResultsMessage = document.createElement("div");
+        noResultsMessage.className = "col-12 text-center my-5";
+        noResultsMessage.textContent = "No results found! Please try again with a different keyword...";
+        movieList.appendChild(noResultsMessage);
+    } else {
+        for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
+    const movie = filteredMovies[i];
+
+    const movieCard = document.createElement("div");
+    movieCard.className = "col-md-4 mb-4";
+
+    movieCard.innerHTML = `
+        <div class="card" data-toggle="modal" data-target="#movieModal" data-movie-index="${i}">
+            <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
+            <div class="card-body">
+                <h5 class="card-title">${movie.title.toUpperCase()}</h5> <!-- Capitalize title -->
+            </div>
+        </div>
+    `;
+
+    movieList.appendChild(movieCard);
+}
+    }
+
+    const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
+    document.getElementById("page-info").textContent = `Page ${currentPage} of ${totalPages}`;
+
+    if (totalPages === 1) {
+        nextPageButton.style.display = "none";
+        prevPageButton.style.display = "none";
+    } else {
+        nextPageButton.style.display = currentPage === totalPages ? "none" : "block";
+        prevPageButton.style.display = currentPage === 1 ? "none" : "block";
+    }
+
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
+}
+
+renderMovies(currentPage);
+
+searchInput.addEventListener("input", () => {
+    currentPage = 1;
+    renderMovies(currentPage);
+});
+
+nextPageButton.addEventListener("click", () => {
+    currentPage++;
+    renderMovies(currentPage);
+});
+
+prevPageButton.addEventListener("click", () => {
+    currentPage--;
+    renderMovies(currentPage);
+});
+
+$('#videoModal').on('hidden.bs.modal', function () {
+    // Remove the modal-open class from the body
+    $('body').removeClass('modal-open');
+    // Reset the body's overflow property to its original value
+    $('body').css('overflow', 'auto');
+});
+
+
+    </script>
+</body>
+</html>

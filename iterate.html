@@ -115,6 +115,22 @@
     <script>
  const seriesData = [
  {
+    "title": "Vikings Valhala",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Vikings-%20Valhalla/Vikings-%20Valhalla%201%20by%20Vj%20Kimuli.mp4",
+    "seasons": [
+    {
+                "seasonNumber": 1,
+                "episodeCount": 16
+            },
+            {
+                "seasonNumber": 2,
+                "episodeCount": 7
+            },
+        ],
+        "vjName": "Vj Kimuli",
+        "thumbnail": "Vikings20Valhalla202022.jpgh380w250atzc1.jpg"
+  },
+ {
     "title": "Squid Game",
     "href": "https://mobifliks.info/downloadserie.php?file=luganda/Squid%20Game/Squid%20Game%201%20by%20Vj%20Junior.mp4" ,
     "seasons": [
@@ -125,6 +141,18 @@
         ],
         "vjName": "Vj Junior",
         "thumbnail": "Squid20Game202021.jpgh380w250atzc1.jpg"
+  },
+    {
+    "title": "Ms. Marvel",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Ms%20Marvel/Ms.%20Marvel%201%20by%20Vj%20Kevo%20-%20Mobifliks.com.mp4" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 6
+            }
+        ],
+        "vjName": "Vj Kevo",
+        "thumbnail": "Ms.20Marvel202022.jpgh380w250atzc1.jpg"
   },
  {
     "title": "Zootopia",
@@ -2934,22 +2962,7 @@
         "vjName": "Vj KS",
         "thumbnail": "A20Model20Family202022.jpgh380w250atzc1.jpg"
   },
- {
-    "title": "Vikings Valhala",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Vikings-%20Valhalla/Vikings-%20Valhalla%201%20by%20Vj%20Kimuli.mp4&eps_id=41457" ,
-    "seasons": [
-    {
-                "seasonNumber": 1,
-                "episodeCount": 16
-            },
-            {
-                "seasonNumber": 2,
-                "episodeCount": 7
-            },
-        ],
-        "vjName": "Vj Kimuli",
-        "thumbnail": "Vikings20Valhalla202022.jpgh380w250atzc1.jpg"
-  },
+
   {
     "title": "24 Legacy",
     "href": "https://mobifliks.info/downloadserie.php?file=luganda/24-%20Legacy/24-%20Legacy%201%20by%20Vj%20Ice%20P.mp4" ,
@@ -4542,18 +4555,7 @@
         "vjName": "Vj Eddy",
         "thumbnail": "Mr20Swimmer202018.jpgh380w250atzc1.jpg"
   },
-  {
-    "title": "Ms. Marvel",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Ms%20Marvel/Ms.%20Marvel%201%20by%20Vj%20Kevo%20-%20Mobifliks.com.mp4&eps_id=40138" ,
-    "seasons": [
-            {
-                "seasonNumber": 1,
-                "episodeCount": 6
-            }
-        ],
-        "vjName": "Vj Kevo",
-        "thumbnail": "Ms.20Marvel202022.jpgh380w250atzc1.jpg"
-  },
+
   {
     "title": "Munich",
     "href": "https://mobifliks.info/downloadserie.php?file=luganda/Munich%20Games/Munich%20Games%201%20by%20Vj%20Kimuli.mp4&eps_id=40927" ,
@@ -6355,6 +6357,7 @@ scrollToTopButton.addEventListener("click", () => {
             <img src="${movie.thumbnail}" class="card-img-top" alt="${movie.title}">
             <div class="card-body">
                 <h5 class="card-title">${movie.title.toUpperCase()}</h5> <!-- Capitalize title -->
+                <p class="card-text">${movie.vjName}</p>
             </div>
         </div>
     `;
