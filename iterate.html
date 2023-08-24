@@ -114,22 +114,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
  const seriesData = [
- {
-    "title": "Vikings Valhala",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Vikings-%20Valhalla/Vikings-%20Valhalla%201%20by%20Vj%20Kimuli.mp4",
-    "seasons": [
-    {
-                "seasonNumber": 1,
-                "episodeCount": 16
-            },
-            {
-                "seasonNumber": 2,
-                "episodeCount": 7
-            },
-        ],
-        "vjName": "Vj Kimuli",
-        "thumbnail": "Vikings20Valhalla202022.jpgh380w250atzc1.jpg"
-  },
+
  {
     "title": "Squid Game",
     "href": "https://mobifliks.info/downloadserie.php?file=luganda/Squid%20Game/Squid%20Game%201%20by%20Vj%20Junior.mp4" ,
@@ -5971,7 +5956,22 @@
         "vjName": "",
         "thumbnail": "Vagabond202019-.jpgh380w250atzc1.jpg"
   },
-
+  {
+    "title": "Vikings Valhala",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Vikings-%20Valhalla/Vikings-%20Valhalla%201%20by%20Vj%20Kimuli.mp4",
+    "seasons": [
+    {
+                "seasonNumber": 1,
+                "episodeCount": 16
+            },
+            {
+                "seasonNumber": 2,
+                "episodeCount": 7
+            },
+        ],
+        "vjName": "Vj Kimuli",
+        "thumbnail": "Vikings20Valhalla202022.jpgh380w250atzc1.jpg"
+  },
   {
     "title": "Vikings",
     "href": "https://mobifliks.info/downloadserie.php?file=luganda/vikings/Vikings_01_1.mp4" ,
@@ -6191,7 +6191,7 @@
         ],
         "vjName": "Vj Tom",
         "thumbnail": "ZeroZeroZero202019-.jpgh380w250atzc1.jpg"
-  },
+  }
 
 ];
 
@@ -6282,6 +6282,7 @@ function generateEpisodeSource(title, episodeNumber, vjName) {
     const episodeUrl = `${baseUrl}?file=luganda/${encodedTitle}/${encodedTitle}%20${episodeNumber}%20by%20${vjName}.mp4`;
     return episodeUrl;
 }
+
 
 // Function to open video in the modal
 function openVideoModal(videoSource) {
