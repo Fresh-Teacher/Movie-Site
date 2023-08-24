@@ -114,58 +114,65 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
  const seriesData = [
- {
-    "title": "Squid Game",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Squid%20Game/Squid%20Game%201%20by%20Vj%20Junior.mp4" ,
+ {  
+    "title": "24 Legacy",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/24-%20Legacy/24-%20Legacy%201%20by%20Vj%20Ice%20P.mp4" ,
     "seasons": [
             {
                 "seasonNumber": 1,
-                "episodeCount": 9
+                "episodeCount": 12
             }
         ],
-        "vjName": "Vj Junior",
-        "thumbnail": "Squid20Game202021.jpgh380w250atzc1.jpg"
+        "vjName": "Vj Ice P",
+        "thumbnail": "24Legacy.jpgh380w250atzc1.jpg"
   },
-{
-    "title": "Sweet Tooth",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/sweettooth/SWEET TOOTH 1.mp4" ,
+
+  {
+    "title": "13 Reasons Why",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/13reasonswhy/13%20Reasons%20Why%2027%20by%20Vj%20Ulio.mp4" ,
     "seasons": [
             {
                 "seasonNumber": 1,
-                "episodeCount": 8
+                "episodeCount": 13
+            },
+            {
+                "seasonNumber": 2,
+                "episodeCount": 14,
+            },
+            {
+                "seasonNumber": 3,
+                "episodeCount": 13
             }
         ],
-        "vjName": "",
-        "thumbnail": "Sweet20Tooth202021.jpgh380w250atzc1.jpg"
+        "untranslated": "Vj Ulio",
+        "thumbnail": "1320Reasons20Why202017.jpgh380w250atzc1.jpg"
   },
   {
-    "title": "Vikings Valhala",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Vikings- Valhalla/Vikings- Valhalla 1 by Vj Kimuli.mp4",
+    "title": "24 Japan",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/24Japan/24%20JAPAN%201.mp4" ,
     "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodeCount": 16
-      },
-      {
-        "seasonNumber": 2,
-        "episodeCount": 7
-      }
-    ],
-    "vjName": "Vj Kimuli",
-    "thumbnail": "Vikings20Valhalla202022.jpgh380w250atzc1.jpg"
+            {
+                "seasonNumber": 1,
+                "episodeCount": 14
+            }
+        ],
+        "untranslated": "Vj Sammy",
+        "thumbnail": "2420JAPAN.jpgh380w250atzc1.jpg"
   },
   {
     "title": "Ms. Marvel",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Ms Marvel/Ms. Marvel 1 by Vj Kevo - Mobifliks.com.mp4",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Ms%20Marvel/Ms.%20Marvel%201%20by%20Vj%20Kevo%20-%20Mobifliks.com.mp4" ,
     "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodeCount": 6
-      }
-    ],
-    "vjName": "Vj Kevo",
-    "thumbnail": "Ms.20Marvel202022.jpgh380w250atzc1.jpg"
-  }
+            {
+                "seasonNumber": 1,
+                "episodeCount": 6
+            }
+        ],
+        "vjName": "Vj Kevo",
+        "thumbnail": "Ms.20Marvel202022.jpgh380w250atzc1.jpg"
+  },
+ 
+
 ];
 
 $('#movieModal').on('show.bs.modal', function (event) {
@@ -175,30 +182,43 @@ $('#movieModal').on('show.bs.modal', function (event) {
 
     const modal = $(this);
     modal.find("#modal-movie-title").text(movie.title);
+
+    // Check if the movie is untranslated and the notification hasn't been added
+    if (movie.untranslated && !movie.vjName && modal.find(".alert-warning").length === 0) {
+        const untranslatedAlert = document.createElement('div');
+        untranslatedAlert.className = 'alert alert-warning mt-2';
+        untranslatedAlert.textContent = 'This movie is untranslated.';
+        modal.find(".modal-body").prepend(untranslatedAlert);
+    }
+
     modal.find("#modal-episode-list").empty();
 
     const seasonButtons = modal.find("#modal-season-buttons");
     seasonButtons.empty();
 
     if (movie.seasons && movie.seasons.length > 0) {
-        movie.seasons.forEach((season, seasonIndex) => {
-            const seasonButton = document.createElement('button');
-            seasonButton.className = 'btn btn-secondary mr-2';
-            seasonButton.textContent = `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`;
-            seasonButton.addEventListener('click', () => {
-    modal.find("#modal-episode-list").empty();
+    movie.seasons.forEach((season, seasonIndex) => {
+        const seasonButton = document.createElement('button');
+        seasonButton.className = 'btn btn-secondary mr-2';
+        seasonButton.textContent = `Season ${season.seasonNumber} (${season.episodeCount} Episodes)`;
+        seasonButton.dataset.seasonIndex = seasonIndex; // Add this line
 
-    let cumulativeEpisodeCount = 0;
-    for (let i = 0; i < seasonIndex; i++) {
-        cumulativeEpisodeCount += movie.seasons[i].episodeCount;
-    }
+        // Attach the event listener to each season button
+        seasonButton.addEventListener('click', function () {
+            modal.find("#modal-episode-list").empty();
 
-    for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
+            let cumulativeEpisodeCount = 0;
+            for (let i = 0; i < seasonIndex; i++) {
+                cumulativeEpisodeCount += movie.seasons[i].episodeCount;
+            }
+
+            for (let episodeIndex = 1; episodeIndex <= season.episodeCount; episodeIndex++) {
         const listItem = document.createElement('li');
         listItem.className = 'list-group-item';
 
         const episodeNumber = cumulativeEpisodeCount + episodeIndex;
-        const episodeLink = generateEpisodeSource(movie.title, episodeNumber, movie.vjName); // Change function name here
+        const episodeLink = generateEpisodeSource(movie.title, episodeNumber, movie.vjName, movie.untranslated);
+ // Change function name here
 
         const episodeNameElement = document.createElement("span");
         episodeNameElement.textContent = generateEpisodeName(season.seasonNumber, episodeIndex);
