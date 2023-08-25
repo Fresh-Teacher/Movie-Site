@@ -1,5 +1,17 @@
 [
   {
+    "title": "Squid Game",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Squid%20Game/Squid%20Game%201%20by%20Vj%20Junior.mp4&eps_id=42231" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 9
+            }
+        ],
+        "vjName": "Vj Junior",
+        "thumbnail": "Squid20Game202021.jpgh380w250atzc1.jpg"
+  },
+  {
     "title": "Guardians of the Galaxy Vol. 3 Part 1",
     "year": 2023,
     "cast": [

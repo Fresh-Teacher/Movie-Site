@@ -425,10 +425,7 @@ document.getElementById("searchInput").addEventListener("input", searchMovies);
       }
 
         // Scroll to the top of the page
-        document.getElementById("movie-list").scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-      });
+        window.scrollTo(0, 0);
       
       pages.innerHTML = index + "/" + pagination;
     };
