@@ -1,24 +1,5 @@
 [
-  {  
-    "year": "",
-    "extract": "",
-    "cast": [
-      "Actors"
-    ],
-    "genres": [
-      "Movie"
-    ],
-    "title": "Squid Game",
-    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Squid%20Game/Squid%20Game%201%20by%20Vj%20Junior.mp4&eps_id=42231" ,
-    "seasons": [
-            {
-                "seasonNumber": 1,
-                "episodeCount": 9
-            }
-        ],
-        "vjName": "Vj Junior",
-        "thumbnail": "Squid20Game202021.jpgh380w250atzc1.jpg"
-  },
+
   {
     "title": "Guardians of the Galaxy",
     "year": 2023,
@@ -46,6 +27,124 @@
     "thumbnail_width": 259,
     "thumbnail_height": 384
   },  
+  {
+    
+    "title": "Sisu",
+    "year": 2023,
+    "cast": [
+      "Jorma Tommila",
+      "Aksel Hennie",
+      "Jack Doolan",
+      "Mimosa Willamo"
+    ],
+    "genres": [
+      "Action",
+      "Historical"
+    ],
+    "href": "https://mobifliks.info/downloadmp4.php?file=luganda/Sisu%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
+    "extract": "Sisu is a 2022 historical action film written and directed by Jalmari Helander. Set in Finnish Lapland during World War II, the film follows a gold prospector who attempts to secure his gold from a Nazi death squad led by a brutal Schutzstaffel officer. Shot in 2021 in Lapland with a budget of about six million euros, the film stars Jorma Tommila, Aksel Hennie, Jack Doolan and Mimosa Willamo.",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/en/c/c6/Sisu_ver2.png",
+    "thumbnail_width": 250,
+    "thumbnail_height": 370
+    },
+    {
+    "title": "Creed III",
+    "year": 2023,
+    "cast": [
+      "Michael B. Jordan",
+      "Tessa Thompson",
+      "Jonathan Majors",
+      "Wood Harris",
+      "Mila Davis-Kent",
+      "Florian Munteanu",
+      "Phylicia Rashad"
+    ],
+    "genres": [
+      "Drama",
+      "Sports"
+    ],
+    "href": "https://mobifliks.info/downloadmp4.php?file=luganda/Creed%20III%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
+    "extract": "Creed III is a 2023 American sports drama film directed, produced by and starring Michael B. Jordan from a screenplay by Keenan Coogler and Zach Baylin. It is the sequel to Creed II (2018), the third in the Creed film series, and the ninth overall in the Rocky film series. It also stars Tessa Thompson, Jonathan Majors, Wood Harris, Mila Davis-Kent, Florian Munteanu and Phylicia Rashad. In the film, the accomplished and recently retired boxer Adonis Creed (Jordan) comes face-to-face with his childhood friend and former boxing prodigy Damian Anderson (Majors).",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/en/c/c2/Creed_III_poster.png",
+    "thumbnail_width": 250,
+    "thumbnail_height": 370
+    },
+    {
+    "title": "Knights of the Zodiac",
+    "year": 2023,
+    "cast": [
+      "Mackenyu",
+      "Famke Janssen",
+      "Madison Iseman",
+      "Diego Tinoco",
+      "Mark Dacascos",
+      "Nick Stahl",
+      "Sean Bean"
+    ],
+    "genres": [
+      "Action",
+      "Fantasy"
+    ],
+    "href": "https://mobifliks.info/downloadmp4.php?file=luganda/Knights%20of%20the%20Zodiac%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
+    "extract": "Knights of the Zodiac  is a 2023 action fantasy film directed by Tomasz Bagiński from a screenplay by Josh Campbell, Matt Stuecken, and Kiel Murray, based on the manga Saint Seiya by Masami Kurumada. The film stars Mackenyu, Famke Janssen, Madison Iseman, Diego Tinoco, Mark Dacascos, Nick Stahl, and Sean Bean.",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/en/d/d8/Knights_of_the_Zodiac_poster.jpg",
+    "thumbnail_width": 280,
+    "thumbnail_height": 350
+    },
+    {
+    "title": "Fast X",
+    "year": 2023,
+    "cast": [
+      "Vin Diesel",
+      "Michelle Rodriguez",
+      "Tyrese Gibson",
+      "Chris \"Ludacris\" Bridges",
+      "Jason Momoa",
+      "Nathalie Emmanuel",
+      "Jordana Brewster",
+      "John Cena",
+      "Jason Statham",
+      "Sung Kang",
+      "Alan Ritchson",
+      "Daniela Melchior",
+      "Scott Eastwood",
+      "Helen Mirren",
+      "Charlize Theron",
+      "Brie Larson",
+      "Rita Moreno"
+    ],
+    "genres": [
+      "Action"
+    ],
+    "href": "https://mobifliks.info/downloadmp4.php?file=luganda/Fast%20X%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
+    "extract": "Fast X is an upcoming American action film directed by Louis Leterrier from a screenplay by Justin Lin, Zach Dean, and Dan Mazeau. It is the sequel to F9 (2021), serving as the tenth and penultimate main installment, and the eleventh full-length film in the Fast & Furious franchise. The film stars an ensemble cast including Vin Diesel, Michelle Rodriguez, Tyrese Gibson, Chris \"Ludacris\" Bridges, Jason Momoa, Nathalie Emmanuel, Jordana Brewster, John Cena, Jason Statham, Sung Kang, Alan Ritchson, Daniela Melchior, Scott Eastwood, Helen Mirren, Charlize Theron, Brie Larson, and Rita Moreno.",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/en/f/f2/Fast_X_poster.jpg",
+    "thumbnail_width": 220,
+    "thumbnail_height": 348
+    },
+    {
+    "title": "Transformers: Rise of the Beasts",
+    "year": 2023,
+    "cast": [
+      "Anthony Ramos",
+      "Dominique Fishback",
+      "Peter Cullen",
+      "Ron Perlman",
+      "Pete Davidson",
+      "Liza Koshy",
+      "Peter Dinklage",
+      "Michelle Yeoh"
+    ],
+    "genres": [
+      "Action",
+      "Science Fiction"
+    ],
+    "href": "https://mobifliks.info/downloadmp4.php?file=luganda/Transformers-%20Rise%20of%20the%20Beasts%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
+    "extract": "Transformers: Rise of the Beasts is an upcoming American science fiction action film based on Hasbro's Transformers toy line and primarily influenced by the Beast Wars storyline. The film is the seventh installment in the Transformers film series and a standalone sequel to Bumblebee (2018). The film is directed by Steven Caple Jr. from a screenplay by Joby Harold, Darnell Metayer, Josh Peters, Erich Hoeber, and Jon Hoeber. It will star Anthony Ramos, Dominique Fishback, Luna Lauren Vélez and Tobe Nwigwe in his film debut, as well the voice talents of Ron Perlman, Peter Dinklage, Michelle Yeoh, Pete Davidson, Liza Koshy, Cristo Fernández, Michaela Jaé Rodriguez, Tongayi Chirisa, and previous voice actors, Peter Cullen, John DiMaggio and David Sobolov.",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/en/1/1c/Transformers-_Rise_of_the_Beasts.jpg",
+    "thumbnail_width": 259,
+    "thumbnail_height": 384
+    },
   {
     "title": "Maybe I Do",
     "year": 2023,
@@ -1020,124 +1119,7 @@
     "href": "https://mobifliks.info/downloadmp4.php?file=luganda/Kandahar%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
     "extract": "Kandahar is an upcoming American action thriller film directed by Ric Roman Waugh, written by Mitchell LaFortune, and produced by Gerard Butler, who also stars in the film alongside Ali Fazal. The film is scheduled to be released in theaters on May 26, 2023, by Open Road Films."
   },
-{
-    
-"title": "Sisu",
-"year": 2023,
-"cast": [
-  "Jorma Tommila",
-  "Aksel Hennie",
-  "Jack Doolan",
-  "Mimosa Willamo"
-],
-"genres": [
-  "Action",
-  "Historical"
-],
-"href": "https://mobifliks.info/downloadmp4.php?file=luganda/Sisu%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
-"extract": "Sisu is a 2022 historical action film written and directed by Jalmari Helander. Set in Finnish Lapland during World War II, the film follows a gold prospector who attempts to secure his gold from a Nazi death squad led by a brutal Schutzstaffel officer. Shot in 2021 in Lapland with a budget of about six million euros, the film stars Jorma Tommila, Aksel Hennie, Jack Doolan and Mimosa Willamo.",
-"thumbnail": "https://upload.wikimedia.org/wikipedia/en/c/c6/Sisu_ver2.png",
-"thumbnail_width": 250,
-"thumbnail_height": 370
-},
-{
-"title": "Creed III",
-"year": 2023,
-"cast": [
-  "Michael B. Jordan",
-  "Tessa Thompson",
-  "Jonathan Majors",
-  "Wood Harris",
-  "Mila Davis-Kent",
-  "Florian Munteanu",
-  "Phylicia Rashad"
-],
-"genres": [
-  "Drama",
-  "Sports"
-],
-"href": "https://mobifliks.info/downloadmp4.php?file=luganda/Creed%20III%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
-"extract": "Creed III is a 2023 American sports drama film directed, produced by and starring Michael B. Jordan from a screenplay by Keenan Coogler and Zach Baylin. It is the sequel to Creed II (2018), the third in the Creed film series, and the ninth overall in the Rocky film series. It also stars Tessa Thompson, Jonathan Majors, Wood Harris, Mila Davis-Kent, Florian Munteanu and Phylicia Rashad. In the film, the accomplished and recently retired boxer Adonis Creed (Jordan) comes face-to-face with his childhood friend and former boxing prodigy Damian Anderson (Majors).",
-"thumbnail": "https://upload.wikimedia.org/wikipedia/en/c/c2/Creed_III_poster.png",
-"thumbnail_width": 250,
-"thumbnail_height": 370
-},
-{
-"title": "Knights of the Zodiac",
-"year": 2023,
-"cast": [
-  "Mackenyu",
-  "Famke Janssen",
-  "Madison Iseman",
-  "Diego Tinoco",
-  "Mark Dacascos",
-  "Nick Stahl",
-  "Sean Bean"
-],
-"genres": [
-  "Action",
-  "Fantasy"
-],
-"href": "https://mobifliks.info/downloadmp4.php?file=luganda/Knights%20of%20the%20Zodiac%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
-"extract": "Knights of the Zodiac  is a 2023 action fantasy film directed by Tomasz Bagiński from a screenplay by Josh Campbell, Matt Stuecken, and Kiel Murray, based on the manga Saint Seiya by Masami Kurumada. The film stars Mackenyu, Famke Janssen, Madison Iseman, Diego Tinoco, Mark Dacascos, Nick Stahl, and Sean Bean.",
-"thumbnail": "https://upload.wikimedia.org/wikipedia/en/d/d8/Knights_of_the_Zodiac_poster.jpg",
-"thumbnail_width": 280,
-"thumbnail_height": 350
-},
-{
-"title": "Fast X",
-"year": 2023,
-"cast": [
-  "Vin Diesel",
-  "Michelle Rodriguez",
-  "Tyrese Gibson",
-  "Chris \"Ludacris\" Bridges",
-  "Jason Momoa",
-  "Nathalie Emmanuel",
-  "Jordana Brewster",
-  "John Cena",
-  "Jason Statham",
-  "Sung Kang",
-  "Alan Ritchson",
-  "Daniela Melchior",
-  "Scott Eastwood",
-  "Helen Mirren",
-  "Charlize Theron",
-  "Brie Larson",
-  "Rita Moreno"
-],
-"genres": [
-  "Action"
-],
-"href": "https://mobifliks.info/downloadmp4.php?file=luganda/Fast%20X%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
-"extract": "Fast X is an upcoming American action film directed by Louis Leterrier from a screenplay by Justin Lin, Zach Dean, and Dan Mazeau. It is the sequel to F9 (2021), serving as the tenth and penultimate main installment, and the eleventh full-length film in the Fast & Furious franchise. The film stars an ensemble cast including Vin Diesel, Michelle Rodriguez, Tyrese Gibson, Chris \"Ludacris\" Bridges, Jason Momoa, Nathalie Emmanuel, Jordana Brewster, John Cena, Jason Statham, Sung Kang, Alan Ritchson, Daniela Melchior, Scott Eastwood, Helen Mirren, Charlize Theron, Brie Larson, and Rita Moreno.",
-"thumbnail": "https://upload.wikimedia.org/wikipedia/en/f/f2/Fast_X_poster.jpg",
-"thumbnail_width": 220,
-"thumbnail_height": 348
-},
-{
-"title": "Transformers: Rise of the Beasts",
-"year": 2023,
-"cast": [
-  "Anthony Ramos",
-  "Dominique Fishback",
-  "Peter Cullen",
-  "Ron Perlman",
-  "Pete Davidson",
-  "Liza Koshy",
-  "Peter Dinklage",
-  "Michelle Yeoh"
-],
-"genres": [
-  "Action",
-  "Science Fiction"
-],
-"href": "https://mobifliks.info/downloadmp4.php?file=luganda/Transformers-%20Rise%20of%20the%20Beasts%20by%20Vj%20Junior%20-%20Mobifliks.com.mp4",
-"extract": "Transformers: Rise of the Beasts is an upcoming American science fiction action film based on Hasbro's Transformers toy line and primarily influenced by the Beast Wars storyline. The film is the seventh installment in the Transformers film series and a standalone sequel to Bumblebee (2018). The film is directed by Steven Caple Jr. from a screenplay by Joby Harold, Darnell Metayer, Josh Peters, Erich Hoeber, and Jon Hoeber. It will star Anthony Ramos, Dominique Fishback, Luna Lauren Vélez and Tobe Nwigwe in his film debut, as well the voice talents of Ron Perlman, Peter Dinklage, Michelle Yeoh, Pete Davidson, Liza Koshy, Cristo Fernández, Michaela Jaé Rodriguez, Tongayi Chirisa, and previous voice actors, Peter Cullen, John DiMaggio and David Sobolov.",
-"thumbnail": "https://upload.wikimedia.org/wikipedia/en/1/1c/Transformers-_Rise_of_the_Beasts.jpg",
-"thumbnail_width": 259,
-"thumbnail_height": 384
-},
+
 {
 "title": "Evil Dead Rise Vj Junior",
 "year": 2023,
@@ -1617,5 +1599,25 @@
     "thumbnail": "https://upload.wikimedia.org/wikipedia/en/0/04/Wildflower_Film_Poster.png",
     "thumbnail_width": 255,
     "thumbnail_height": 368
+  },
+  {  
+    "year": "",
+    "extract": "",
+    "cast": [
+      "Actors"
+    ],
+    "genres": [
+      "Movie"
+    ],
+    "title": "Squid Game",
+    "href": "https://mobifliks.info/downloadserie.php?file=luganda/Squid%20Game/Squid%20Game%201%20by%20Vj%20Junior.mp4&eps_id=42231" ,
+    "seasons": [
+            {
+                "seasonNumber": 1,
+                "episodeCount": 9
+            }
+        ],
+        "vjName": "Vj Junior",
+        "thumbnail": "Squid20Game202021.jpgh380w250atzc1.jpg"
   }
 ]
