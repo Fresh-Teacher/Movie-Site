@@ -4,6 +4,7 @@ fetch('2007.json')
     return response.json();
 })
 .then((data) => {
+  document.getElementById("searchInput").style.display = "none";
     let div1 = document.getElementById("film");
 
     for (let i = data.length - 1; i >= 0; i--) {
