@@ -3,30 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namungoona Parent's Junior School</title>
+    <title>Celebration Agenda and Summary</title>
     <!-- Bootstrap CSS -->
+    <!-- Include baguetteBox.js library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.0/baguetteBox.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.0/baguetteBox.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .jumbotron {
+            background-color: #007bff;
+            color: #fff;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0.3rem;
+        }
+
+
+        .container {
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .event {
+            margin-bottom: 20px;
+        }
+
+        .class-details {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .class-details h3 {
+            color: #007bff;
+        }
+
+        audio {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .song-link {
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
+            margin-right: 10px;
+        }
+    </style>
 </head>
-<body>
+<body></body>
+<div class="container">
 
-    <div class="jumbotron text-center" style="background-image: url('jumbotron.jpg'); background-size: cover; color: white;">
-        <h1 class="display-4">Namungoona Parent's Junior School</h1>
+
+    <h1 class="text-center">Speech Day Agenda</h1>
+    <!-- Add the download link and statement at the top -->
+    <div class="event">
+        <p>This is a summary of the event. If you need the full event, <a href="Speech Day Programme.pdf" download><b>click here</b> </a>to download it.</p>
     </div>
+        <div class="event">
+            <h2>Speeches</h2>
+            <p>
+                - Speech from the Headteacher<br>
+                - Speech by the Director<br>
+                - Speech from The Guest of Honour
+            </p>
+        </div>
 
-    <div class="container">
-        <form onsubmit="return validateForm()" class="mt-5">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+        <div class="event">
+            <h2>Entertainment from Various Classes</h2>
+            <p>There will be entertainment from various classes.</p>
+
+           <!-- Add a button to trigger the display of the class list -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#classListModal">
+    View All Classes
+</button>
+
+<!-- Modal for the Class List -->
+<div class="modal fade" id="classListModal" tabindex="-1" role="dialog" aria-labelledby="classListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="classListModalLabel">Class List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- List of classes -->
+                <ul>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal1">Baby Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal2">Top Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal3">Top Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal4">P.1 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal5">P.2 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal6">P.3 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal7">P.4 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal8">P.5 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal9">P.6 Class</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            <!-- Modal for Top Class -->
+            <div class="modal fade" id="classModal1" tabindex="-1" role="dialog" aria-labelledby="classModalLabel1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content class-details">
+                        <h3>Top Class</h3>
+                        <p>
+                            - <span class="song-link" onclick="playAudio('audioTopClass', 'top_class_welcome.mp3')">Welcome Parents</span>
+                            - A poem about trees.
+                        </p>
+                        <audio id="audioTopClass" controls>
+                            <source src="top_class_welcome.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
+            <!-- Add more modals for other classes as needed -->
+        </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
+    <div class="event">
+        <h2>Top Class Graduation</h2>
+        <p>The Guest of Honour will crown the Top Class Graduands after his speech.</p>
+        <!-- Button to toggle the display of the graduation list -->
+        <button type="button" class="btn btn-primary" onclick="toggleGraduationList()">
+            View Graduation List
+        </button>
+
+<!-- Graduation list div (initially hidden) -->
+<div id="graduationList" style="display: none;">
+    <h3>Top Class Graduands</h3>
+    <ul>
+        <!-- Add each graduand as a list item -->
+        <li><a href="#" onclick="showGraduand('20231124_102544.jpg', 'Norah Hamidah Haimus')">Norah Hamidah Haimus</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_102718.jpg', 'Musenero Prossy')">Musenero Prossy</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_102942.jpg', 'Kavugho Tania')">Kavugho Tania</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_103205.jpg', 'Ainembabazi Treasure Dorothy')">Ainembabazi Treasure Dorothy</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_103635.jpg', 'Ssemakula Musa')">Ssemakula Musa</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_103833.jpg', 'Zawedde Fahimidah')">Zawedde Fahimidah</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_104044.jpg', 'Wakabi Chrispus')">Wakabi Chrispus</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_104256.jpg', 'Musasizi Cherry')">Musasizi Cherry</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_104539.jpg', 'Nambooze Melisa')">Nambooze Melisa</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_104718.jpg', 'Kwagala Anisha Mercy')">Kwagala Anisha Mercy</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_105159.jpg', 'Luwedde Abigail')">Luwedde Abigail</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_105428.jpg', 'Baluka Shakirah')">Baluka Shakirah</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_112332.jpg', 'Kakule Daniel')">Kakule Daniel</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_112654.jpg', 'Shamariah Namulinda')">Shamariah Namulinda</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_112812.jpg', 'Nalugo Alexandra')">Nalugo Alexandra</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_112937.jpg', 'Sserwanja Precious Shalom')">Sserwanja Precious Shalom</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_113246.jpg', 'Mbabazi Quin Esther')">Mbabazi Quin Esther</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_113437.jpg', 'Kasereka Ephraim')">Kasereka Ephraim</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_113606.jpg', 'Joshua')">Joshua</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_113741.jpg', 'Derrick')">Derrick</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_113906.jpg', 'Mungola Hashim')">Mungola Hashim</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_114100.jpg', 'Nalukindu Waldah')">Nalukindu Waldah</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_114224.jpg', 'Joshua')">Joshua</a></li>
+        <li><a href="#" onclick="showGraduand('20231124_114415.jpg', 'Derrick')">Derrick</a></li>              </ul>
+               <!-- Display graduand photo here -->
+    <div id="graduandPhotoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="graduandPhotoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="graduandPhotoModalLabel">Graduand Photo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="selectedGraduandPhoto" src="" alt="Graduand" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript function to show graduand photo -->
+<script>
+  function showGraduand(photoSrc, graduandName) {
+        var selectedGraduandPhoto = document.getElementById('selectedGraduandPhoto');
+        selectedGraduandPhoto.src = photoSrc;
+        
+        // Set the modal title to the graduand's name
+        var graduandPhotoModalLabel = document.getElementById('graduandPhotoModalLabel');
+        graduandPhotoModalLabel.innerHTML = "Graduand's Name: " + graduandName;
+
+        // Show the modal
+        $('#graduandPhotoModal').modal('show');
+    }
+    
+// JavaScript function to toggle the display of graduation list and update button text
+function toggleGraduationList() {
+        var graduationList = document.getElementById('graduationList');
+        var graduandNamesList = document.getElementById('graduandNamesList');
+        var button = document.querySelector('.btn-primary');
+
+        if (graduandNamesList.style.display === 'block') {
+            graduandNamesList.style.display = 'none';
+            button.innerHTML = 'Show Graduation List';
+        } else {
+            graduandNamesList.style.display = 'block';
+            button.innerHTML = 'Hide Graduation List';
+        }
+    }
+</script>
+
+
+        <div class="event">
+            <h2>Closure</h2>
+            <p>A closing prayer will be made to end the day and the congregation will be dismissed.</p>
+        </div>
     </div>
 
     <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
@@ -35,43 +234,69 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script>
-        function playWelcomeSpeech() {
-            var speechSynthesis = window.speechSynthesis;
-
-            // Create a new speech synthesis utterance
-            var welcomeMessage = new SpeechSynthesisUtterance('You are most welcome!');
-
-            // Get all available voices
-            var voices = speechSynthesis.getVoices();
-
-            // Find a female voice (customize as needed)
-            var femaleVoice = voices.find(function (voice) {
-                return voice.name.includes('Female');
+            function toggleGraduationList() {
+        var graduationList = document.getElementById('graduationList');
+        if (graduationList.style.display === 'none') {
+            graduationList.style.display = 'block';
+        } else {
+            graduationList.style.display = 'none';
+        }
+    }
+        function playAudio(audioId, audioFile) {
+            // Pause all other audio elements before playing a new one
+            var audioElements = document.querySelectorAll('.audio-container audio');
+            audioElements.forEach(function (element) {
+                element.pause();
             });
 
-            // Set the voice to the found female voice
-            welcomeMessage.voice = femaleVoice;
+            // Hide all audio containers before showing the selected one
+            var audioContainers = document.querySelectorAll('.audio-container');
+            audioContainers.forEach(function (container) {
+                container.style.display = 'none';
+            });
 
-            // Play the welcome message
-            speechSynthesis.speak(welcomeMessage);
-        }
-
-        function validateForm() {
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-
-            // Replace the following conditions with your validation logic
-            if (email === 'user@namungoona.com' && password === 'npjs') {
-                alert('Login successful! Press Ok to continue...');
-                playWelcomeSpeech(); // Play the welcome speech
-                window.location.href = 'homepage.html'; // Redirect to the homepage
+            // Show and play the selected audio
+            var selectedAudio = document.getElementById(audioId);
+            if (selectedAudio) {
+                var audioContainer = selectedAudio.closest('.audio-container');
+                if (audioContainer) {
+                    audioContainer.style.display = 'block';
+                    selectedAudio.play();
+                } else {
+                    console.error('Parent audio container not found.');
+                }
             } else {
-                alert('Incorrect email or password. Please try again.');
+                console.error('Audio element not found for ID: ' + audioId);
             }
-
-            // Prevent the form from submitting
-            return false;
         }
     </script>
+<!-- Footer -->
+<footer class="footer" style="background-color: #ffffff; height: 100px; display: flex; justify-content: center; align-items: center;">
+    <div class="container">
+        <p style="text-align: center;"><br>
+            Made with <span style="color: red;">❦</span> by Mutumba Jesse Paul<br>
+            &copy; Fresh Teacher's Software <span id="currentYear"></span><br>
+            <a href="tel:+256750687790">0750687790</a> / <a href="tel:+256786812837">0786812837</a> <br>
+        </p>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<!-- Your custom scripts here -->
+<script>
+    // Add the current year to the copyright notice
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+
 </body>
+
+</html>
+
+</body>
+
 </html>
