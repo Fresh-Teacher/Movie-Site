@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebration Agenda and Summary</title>
+    <!-- Bootstrap CSS -->
+    <!-- Include baguetteBox.js library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.0/baguetteBox.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.0/baguetteBox.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .jumbotron {
+            background: url('jumbotron.jpg') center center;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0.3rem;
+            max-height: 300px; /* Adjust this value as needed */
+            overflow: hidden;
+        }
+
+
+        .container {
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .event {
+            margin-bottom: 20px;
+        }
+
+        .class-details {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .class-details h3 {
+            color: #007bff;
+        }
+
+        audio {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .song-link {
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+<div class="container">
+
+
+    <h1 class="text-center">Speech Day Agenda</h1>
+    <!-- Add the download link and statement at the top -->
+    <div class="event">
+        <p>This is a summary of the event. If you need the full event, <a href="Speech Day Programme.pdf" download><b>click here</b> </a>to download it.</p>
+    </div>
+        <div class="event">
+            <h2>Speeches</h2>
+            <p>
+                - Speech from the Headteacher<br>
+                - Speech by the Director<br>
+                - Speech from The Guest of Honour
+            </p>
+        </div>
+
+        <div class="event">
+            <h2>Entertainment from Various Classes</h2>
+            <p>There will be entertainment from various classes.</p>
+
+           <!-- Add a button to trigger the display of the class list -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#classListModal">
+    View All Classes
+</button>
+
+<!-- Modal for the Class List -->
+<div class="modal fade" id="classListModal" tabindex="-1" role="dialog" aria-labelledby="classListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="classListModalLabel">Class List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- List of classes -->
+                <ul>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal1">Baby Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal2">Top Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal3">Top Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal4">P.1 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal5">P.2 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal6">P.3 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal7">P.4 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal8">P.5 Class</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#classModal9">P.6 Class</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            <!-- Modal for Top Class -->
+            <div class="modal fade" id="classModal1" tabindex="-1" role="dialog" aria-labelledby="classModalLabel1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content class-details">
+                        <h3>Top Class</h3>
+                        <p>
+                            - <span class="song-link" onclick="playAudio('audioTopClass', 'top_class_welcome.mp3')">Welcome Parents</span>
+                            - A poem about trees.
+                        </p>
+                        <audio id="audioTopClass" controls>
+                            <source src="top_class_welcome.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Baby Class -->
+            <div class="modal fade" id="classModal2" tabindex="-1" role="dialog" aria-labelledby="classModalLabel2" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content class-details">
+                        <h3>Baby Class</h3>
+                        <p>
+                            - <span class="song-link" onclick="playAudio('audioHappyBirthday', 'Pallaso ~ Happy Birthday.mp3')">Happy Birthday</span>
+                            - <span class="song-link" onclick="playAudio('audioAnotherSong', 'song.mp3')">Another Song</span>
+                            - A song titled "Apaasa Apaasa" by Amooti Omubalanguzi.
+                        </p>
+                        <audio id="audioHappyBirthday" controls>
+                            <source src="Pallaso ~ Happy Birthday.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <audio id="audioAnotherSong" controls>
+                            <source src="song.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+                    </div>
+                </div>
+            </div>
+    <!-- Modal for Baby Class -->
+    <div class="modal fade" id="classModal2" tabindex="-1" role="dialog" aria-labelledby="classModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content class-details">
+                <h3>Baby Class</h3>
+                <p>
+                    - <span class="song-link" onclick="playAudio('audioHappyBirthday', 'Pallaso ~ Happy Birthday.mp3')">Happy Birthday</span>
+                    - <span class="song-link" onclick="playAudio('audioAnotherSong', 'song.mp3')">Another Song</span>
+                    - A song titled "Apaasa Apaasa" by Amooti Omubalanguzi.
+                </p>
+                <audio id="audioHappyBirthday" controls>
+                    <source src="Pallaso ~ Happy Birthday.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="audioAnotherSong" controls>
+                    <source src="song.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Baby Class -->
+    <div class="modal fade" id="classModal2" tabindex="-1" role="dialog" aria-labelledby="classModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content class-details">
+                <h3>Baby Class</h3>
+                <p>
+                    - <span class="song-link" onclick="playAudio('audioHappyBirthday', 'Pallaso ~ Happy Birthday.mp3')">Happy Birthday</span>
+                    - <span class="song-link" onclick="playAudio('audioAnotherSong', 'song.mp3')">Another Song</span>
+                    - A song titled "Apaasa Apaasa" by Amooti Omubalanguzi.
+                </p>
+                <audio id="audioHappyBirthday" controls>
+                    <source src="Pallaso ~ Happy Birthday.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="audioAnotherSong" controls>
+                    <source src="song.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Baby Class -->
+    <div class="modal fade" id="classModal2" tabindex="-1" role="dialog" aria-labelledby="classModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content class-details">
+                <h3>Baby Class</h3>
+                <p>
+                    - <span class="song-link" onclick="playAudio('audioHappyBirthday', 'Pallaso ~ Happy Birthday.mp3')">Happy Birthday</span>
+                    - <span class="song-link" onclick="playAudio('audioAnotherSong', 'song.mp3')">Another Song</span>
+                    - A song titled "Apaasa Apaasa" by Amooti Omubalanguzi.
+                </p>
+                <audio id="audioHappyBirthday" controls>
+                    <source src="Pallaso ~ Happy Birthday.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="audioAnotherSong" controls>
+                    <source src="song.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Baby Class -->
+    <div class="modal fade" id="classModal2" tabindex="-1" role="dialog" aria-labelledby="classModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content class-details">
+                <h3>Baby Class</h3>
+                <p>
+                    - <span class="song-link" onclick="playAudio('audioHappyBirthday', 'Pallaso ~ Happy Birthday.mp3')">Happy Birthday</span>
+                    - <span class="song-link" onclick="playAudio('audioAnotherSong', 'song.mp3')">Another Song</span>
+                    - A song titled "Apaasa Apaasa" by Amooti Omubalanguzi.
+                </p>
+                <audio id="audioHappyBirthday" controls>
+                    <source src="Pallaso ~ Happy Birthday.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="audioAnotherSong" controls>
+                    <source src="song.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Baby Class -->
+    <div class="modal fade" id="classModal2" tabindex="-1" role="dialog" aria-labelledby="classModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content class-details">
+                <h3>Baby Class</h3>
+                <p>
+                    - <span class="song-link" onclick="playAudio('audioHappyBirthday', 'Pallaso ~ Happy Birthday.mp3')">Happy Birthday</span>
+                    - <span class="song-link" onclick="playAudio('audioAnotherSong', 'song.mp3')">Another Song</span>
+                    - A song titled "Apaasa Apaasa" by Amooti Omubalanguzi.
+                </p>
+                <audio id="audioHappyBirthday" controls>
+                    <source src="Pallaso ~ Happy Birthday.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="audioAnotherSong" controls>
+                    <source src="song.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Baby Class -->
+    <div class="modal fade" id="classModal2" tabindex="-1" role="dialog" aria-labelledby="classModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content class-details">
+                <h3>Baby Class</h3>
+                <p>
+                    - <span class="song-link" onclick="playAudio('audioHappyBirthday', 'Pallaso ~ Happy Birthday.mp3')">Happy Birthday</span>
+                    - <span class="song-link" onclick="playAudio('audioAnotherSong', 'song.mp3')">Another Song</span>
+                    - A song titled "Apaasa Apaasa" by Amooti Omubalanguzi.
+                </p>
+                <audio id="audioHappyBirthday" controls>
+                    <source src="Pallaso ~ Happy Birthday.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="audioAnotherSong" controls>
+                    <source src="song.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Baby Class -->
+    <div class="modal fade" id="classModal2" tabindex="-1" role="dialog" aria-labelledby="classModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content class-details">
+                <h3>Baby Class</h3>
+                <p>
+                    - <span class="song-link" onclick="playAudio('audioHappyBirthday', 'Pallaso ~ Happy Birthday.mp3')">Happy Birthday</span>
+                    - <span class="song-link" onclick="playAudio('audioAnotherSong', 'song.mp3')">Another Song</span>
+                    - A song titled "Apaasa Apaasa" by Amooti Omubalanguzi.
+                </p>
+                <audio id="audioHappyBirthday" controls>
+                    <source src="Pallaso ~ Happy Birthday.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="audioAnotherSong" controls>
+                    <source src="song.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Baby Class -->
+    <div class="modal fade" id="classModal2" tabindex="-1" role="dialog" aria-labelledby="classModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content class-details">
+                <h3>Baby Class</h3>
+                <p>
+                    - <span class="song-link" onclick="playAudio('audioHappyBirthday', 'Pallaso ~ Happy Birthday.mp3')">Happy Birthday</span>
+                    - <span class="song-link" onclick="playAudio('audioAnotherSong', 'song.mp3')">Another Song</span>
+                    - A song titled "Apaasa Apaasa" by Amooti Omubalanguzi.
+                </p>
+                <audio id="audioHappyBirthday" controls>
+                    <source src="Pallaso ~ Happy Birthday.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="audioAnotherSong" controls>
+                    <source src="song.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><button type="button" class="btn btn-danger" data-dismiss="modal">Close ❌</button>
+            </div>
+        </div>
+    </div>
+
+            <!-- Add more modals for other classes as needed -->
+        </div>
+
+        <div class="event">
+            <h2>Top Class Graduation</h2>
+            <p>The Guest of Honour will crown the Top Class Graduands after his speech.</p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#graduandsModal">
+                View Graduation List
+            </button>
+        </div>
+        
+<!-- Modal for Graduands -->
+<div class="modal fade" id="graduandsModal" tabindex="-1" role="dialog" aria-labelledby="graduandsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="graduandsModalLabel">Top Class Graduands</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <!-- Use <ol> for ordered list with numbers -->
+                        <li><a href="#" onclick="showGraduand('')">Mutoni Daren</a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a>Asiimwe Methuselah</li>
+                        <li><a href="#" onclick="showGraduand('')">Norah Hamidah Haimus</a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a>Musenero Prossy</li>
+                        <li><a href="#" onclick="showGraduand('')"></a>Kavugho Tania</li>
+                        <li><a href="#" onclick="showGraduand('')"></a>Ainembabazi Treasure</li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        <li><a href="#" onclick="showGraduand('')"></a></li>
+                        
+                    <!-- Add more list items as needed -->
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+        <!-- JavaScript function to show graduand photo -->
+        <script>
+            function showGraduand(photoSrc) {
+                var graduandPhoto = document.getElementById('graduandPhoto');
+                graduandPhoto.innerHTML = '<img src="' + photoSrc + '" alt="Graduand" class="img-fluid">';
+            }
+        </script>
+
+        <div class="event">
+            <h2>Closure</h2>
+            <p>A closing prayer will be made to end the day and the congregation will be dismissed.</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function playAudio(audioId, audioFile) {
+            // Pause all other audio elements before playing a new one
+            var audioElements = document.querySelectorAll('.audio-container audio');
+            audioElements.forEach(function (element) {
+                element.pause();
+            });
+
+            // Hide all audio containers before showing the selected one
+            var audioContainers = document.querySelectorAll('.audio-container');
+            audioContainers.forEach(function (container) {
+                container.style.display = 'none';
+            });
+
+            // Show and play the selected audio
+            var selectedAudio = document.getElementById(audioId);
+            if (selectedAudio) {
+                var audioContainer = selectedAudio.closest('.audio-container');
+                if (audioContainer) {
+                    audioContainer.style.display = 'block';
+                    selectedAudio.play();
+                } else {
+                    console.error('Parent audio container not found.');
+                }
+            } else {
+                console.error('Audio element not found for ID: ' + audioId);
+            }
+        }
+    </script>
+<!-- Footer -->
+<footer class="footer" style="background-color: #ffffff; height: 100px; display: flex; justify-content: center; align-items: center;">
+    <div class="container">
+        <p style="text-align: center;"><br>
+            Made with <span style="color: red;">❦</span> by Mutumba Jesse Paul<br>
+            &copy; Fresh Teacher's Software <span id="currentYear"></span><br>
+            <a href="tel:+256750687790">0750687790</a> / <a href="tel:+256786812837">0786812837</a> <br>
+        </p>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<!-- Your custom scripts here -->
+<script>
+    // Add the current year to the copyright notice
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+
+</body>
+
+</html>
+
+</body>
+
+</html>
