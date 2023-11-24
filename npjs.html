@@ -39,7 +39,7 @@
             var speechSynthesis = window.speechSynthesis;
 
             // Create a new speech synthesis utterance
-            var welcomeMessage = new SpeechSynthesisUtterance('You are most welcome!Please choose one option to continue');
+            var welcomeMessage = new SpeechSynthesisUtterance('You are most welcome!');
 
             // Get all available voices
             var voices = speechSynthesis.getVoices();
@@ -61,10 +61,10 @@
             var password = document.getElementById('password').value;
 
             // Replace the following conditions with your validation logic
-            if (email === 'primaryfive@namungoona.com' && password === 'Primary5') {
+            if (email === 'user@namungoona.com' && password === 'npjs') {
                 alert('Login successful! Press Ok to continue...');
                 playWelcomeSpeech(); // Play the welcome speech
-                window.location.href = 'npjs.html'; // Redirect to the homepage
+                window.location.href = 'homepage.html'; // Redirect to the homepage
             } else {
                 alert('Incorrect email or password. Please try again.');
             }
