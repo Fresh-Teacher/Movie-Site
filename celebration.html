@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namungoona Parents' Junior School Speech Day Programme</title>
+    <title>Celebration Agenda and Summary</title>
     <!-- Bootstrap CSS -->
     <!-- Include baguetteBox.js library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.0/baguetteBox.min.css">
@@ -15,6 +15,8 @@
         body {
             background-color: #f8f9fa;
         }
+
+
 
         .jumbotron {
             background-color: #007bff;
@@ -58,6 +60,47 @@
             margin-right: 10px;
         }
 
+#header .countdown {
+  margin-bottom: 80px;
+}
+
+#header .countdown div {
+  text-align: center;
+  margin: 10px;
+  width: 100px;
+  padding: 15px 0;
+  background: rgba(255, 255, 255, 0.12);
+  border-top: 5px solid #ff0000;
+}
+
+#header .countdown div h3 {
+  font-weight: 700;
+  font-size: 44px;
+  margin-bottom: 15px;
+}
+
+#header .countdown div h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@media (max-width: 575px) {
+  #header .countdown div {
+    width: 70px;
+    padding: 10px 0;
+    margin: 10px 8px;
+  }
+
+  #header .countdown div h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  #header .countdown div h4 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
 
 
         #countdown-section {
@@ -76,15 +119,33 @@
     </style>
 </head>
 <body>
-    <!-- Countdown section -->
-<center><div id="countdown-section">
-    <h2>The Event Starts In:</h2>
-    <div id="countdown"></div>
-</div></center>
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex flex-column align-items-center">
+    
+          <h1></h1>
+          <h2>EVENT STARTS IN:</h2>
+          <div class="countdown d-flex justify-content-center" data-count="2023/11/26">
+            <div>
+              <h3>%d</h3>
+              <h4>Days</h4>
+            </div>
+            <div>
+              <h3>%h</h3>
+              <h4>Hours</h4>
+            </div>
+            <div>
+              <h3>%m</h3>
+              <h4>Minutes</h4>
+            </div>
+            <div>
+              <h3>%s</h3>
+              <h4>Seconds</h4>
+            </div>
+          </div>
+  
+      </header>
 
 <div class="container">
-
-
     <h1 class="text-center">AGENDA</h1>
     <!-- Add the download link and statement at the top -->
     <div class="event">
@@ -771,33 +832,21 @@ function toggleGraduationList() {
         }
     }
 
-     // Set the date and time of the event (replace with your actual event date and time)
-     var eventDate = new Date('2023-11-25T11:45:00');
+    let countdown = document.querySelector('.countdown');
+  const output = countdown.innerHTML;
 
-// Function to update the countdown
-function updateCountdown() {
-    var currentDate = new Date();
-    var timeDifference = eventDate - currentDate;
+  const countDownDate = function() {
+    let timeleft = new Date(countdown.getAttribute('data-count')).getTime() - new Date().getTime();
 
-    if (timeDifference > 0) {
-        var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
 
-        // Display the countdown
-        document.getElementById('countdown').innerHTML = days + ' days, ' + hours + ' hours, ' + minutes + ' minutes, ' + seconds + ' seconds';
-
-        // Update the countdown every second
-        setTimeout(updateCountdown, 1000);
-    } else {
-        // Display a message when the event has started
-        document.getElementById('countdown').innerHTML = 'The event has started. Please enjoy!';
-    }
-}
-
-// Initial call to update the countdown
-updateCountdown();
+    countdown.innerHTML = output.replace('%d', days).replace('%h', hours).replace('%m', minutes).replace('%s', seconds);
+  }
+  countDownDate();
+  setInterval(countDownDate, 1000);
 </script>
 
 
