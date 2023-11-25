@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namungoona Parents' Junior School</title>
+    <title>Namungoona Parent's Junior School</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- Custom CSS for rotating spiral -->
@@ -26,7 +26,7 @@
 <body>
 
     <div class="jumbotron text-center" style="background-image: url('jumbotron.jpg'); background-size: cover; color: white;">
-        <h1 class="display-4">Namungoona Parent's Junior School</h1>
+        <h1 class="display-5">Namungoona Parent's Junior School</h1>
     </div>
 
     <div class="container">
@@ -42,6 +42,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
+            <p id="guestSignIn" style="cursor: pointer; color: blue; text-decoration: underline;"><em>Have no account? Sign in as Guest</em></p>
         </form>
     </div>
 
@@ -51,20 +52,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script>
-function playWelcomeSpeech() {
+        document.getElementById('guestSignIn').addEventListener('click', function() {
+            playWelcomeSpeech();
+            window.location.href = 'homepage.html';
+        });
+    
+        function playWelcomeSpeech() {
             var speechSynthesis = window.speechSynthesis;
-
+    
             // Create a new speech synthesis utterance
             var welcomeMessage = new SpeechSynthesisUtterance('You are most welcome!');
-
+    
             // Set the voice (customize as needed)
             welcomeMessage.voice = speechSynthesis.getVoices()[0];
-
+    
             // Play the welcome message
             speechSynthesis.speak(welcomeMessage);
         }
-
-
+    
         function showLoadingMessage() {
             var loadingContainer = document.createElement('div');
             loadingContainer.style.position = 'fixed';
@@ -80,22 +85,22 @@ function playWelcomeSpeech() {
             
             var rotatingSpiral = document.createElement('div');
             rotatingSpiral.classList.add('rotating-spiral');
-
+    
             var loadingText = document.createElement('p');
             loadingText.innerText = 'Logging in...';
-
+    
             loadingContainer.appendChild(rotatingSpiral);
             loadingContainer.appendChild(loadingText);
-
+    
             document.body.appendChild(loadingContainer);
-
+    
             setTimeout(function () {
                 document.body.removeChild(loadingContainer);
                 playWelcomeSpeech();
                 window.location.href = 'homepage.html';
             }, 2000); // Adjust the duration as needed
         }
-
+    
         function validateForm() {
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
@@ -109,5 +114,6 @@ function playWelcomeSpeech() {
             return false;
         }
     </script>
+    
 </body>
 </html>
