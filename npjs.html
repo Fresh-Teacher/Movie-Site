@@ -1,145 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events and Occasions</title>
-    <!-- Bootstrap CSS link -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Namungoona Parent's Junior School</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Custom CSS for rotating spiral -->
     <style>
-        body {
-            padding: 20px;
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
+        .rotating-spiral {
+            width: 40px;
+            height: 40px;
+            border: 5px solid #3498db;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: rotate 1s linear infinite;
         }
-
-        .event {
-            margin-bottom: 30px;
-            position: relative;
-            cursor: pointer; /* Change cursor to hand */
-        }
-
-        .event img {
-            max-width: 100%;
-            height: auto;
-            transition: transform 0.3s;
-        }
-
-        .event:hover img {
-            transform: scale(1.1);
-        }
-
-        .modal-content iframe {
-            width: 100%;
-            height: 100%;
-        }
-
     </style>
 </head>
-
 <body>
+
+    <div class="jumbotron text-center" style="background-image: url('jumbotron.jpg'); background-size: cover; color: white;">
+        <h1 class="display-4">Namungoona Parent's Junior School</h1>
+    </div>
+
     <div class="container">
-        <h1>Events and Occasions</h1>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="event" data-toggle="modal" data-target="#tourDayModal">
-
-                    <img src="tour day.jpg" alt="Tour Day Thumbnail" class="img-fluid">
-                    <center>  <p>Tour Day</p>
-                </div>
+        <form onsubmit="return validateForm()" class="mt-5">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
             </div>
-            <div class="col-md-4">
-                <div class="event" data-toggle="modal" data-target="#leaversPartyModal">
 
-                    <img src="jumbotrone.jpg" alt="Leaver's Party Thumbnail" class="img-fluid">
-                    <center> <p>Leaver's Party</p>
-                </div>
-            </div>        
-            <div class="col-md-4">
-                <div class="event">
-                    <a href="celebration.html">
-                        <img src="congs.jpg" alt="Graduation Party Thumbnail" class="img-fluid"> </a>
-                        <center>
-                            <p>Speech Day and Graduation Party</p>
-                        </center>
-                   
-                </div>
-            </div>         
-            <!-- Add more columns for additional events -->
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
 
-        </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
     </div>
 
-    <!-- Modals -->
-    <div class="modal fade" id="tourDayModal" tabindex="-1" role="dialog" aria-labelledby="tourDayModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="tourDayModalLabel">Tour Day</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/RNdzpv8DOMQ" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <div class="modal fade" id="leaversPartyModal" tabindex="-1" role="dialog" aria-labelledby="leaversPartyModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="leaversPartyModalLabel">Leaver's Party</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/IWHP60gSh5U" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+function playWelcomeSpeech() {
+            var speechSynthesis = window.speechSynthesis;
 
-    <div class="modal fade" id="graduationPartyModal" tabindex="-1" role="dialog" aria-labelledby="graduationPartyModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="graduationPartyModalLabel">Speech Day and Graduation Party</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_HERE" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
+            // Create a new speech synthesis utterance
+            var welcomeMessage = new SpeechSynthesisUtterance('You are most welcome!');
 
-    <!-- Bootstrap JS and Popper.js scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            // Set the voice (customize as needed)
+            welcomeMessage.voice = speechSynthesis.getVoices()[0];
 
+            // Play the welcome message
+            speechSynthesis.speak(welcomeMessage);
+        }
+
+
+        function showLoadingMessage() {
+            var loadingContainer = document.createElement('div');
+            loadingContainer.style.position = 'fixed';
+            loadingContainer.style.top = '50%';
+            loadingContainer.style.left = '50%';
+            loadingContainer.style.transform = 'translate(-50%, -50%)';
+            loadingContainer.style.display = 'flex';
+            loadingContainer.style.flexDirection = 'column';
+            loadingContainer.style.alignItems = 'center';
+            loadingContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            loadingContainer.style.padding = '20px';
+            loadingContainer.style.borderRadius = '10px';
+            
+            var rotatingSpiral = document.createElement('div');
+            rotatingSpiral.classList.add('rotating-spiral');
+
+            var loadingText = document.createElement('p');
+            loadingText.innerText = 'Logging in...';
+
+            loadingContainer.appendChild(rotatingSpiral);
+            loadingContainer.appendChild(loadingText);
+
+            document.body.appendChild(loadingContainer);
+
+            setTimeout(function () {
+                document.body.removeChild(loadingContainer);
+                playWelcomeSpeech();
+                window.location.href = 'homepage.html';
+            }, 2000); // Adjust the duration as needed
+        }
+
+        function validateForm() {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            if (email === 'user@namungoona.com' && password === 'npjs') {
+                showLoadingMessage();
+            } else {
+                alert('Incorrect email or password. Please try again.');
+            }
+
+            return false;
+        }
+    </script>
 </body>
-<br>
- <!-- Footer -->
- <footer class="footer" style="background-color: #ffffff; height: 100px; display: flex; justify-content: center; align-items: center;">
-    <div class="container">
-      <p style="text-align: center;"><br>
-        Made with <span style="color: red;">❦</span> by Mutumba Jesse Paul<br>
-        &copy; Fresh Teacher's Software <span id="currentYear"></span><br>
-        <a href="tel:+256750687790">0750687790</a> / <a href="tel:+256786812837">0786812837</a> <br>     
-      </p>
-    </div>
-  </footer>
-  <!-- End of Footer -->
 </html>
