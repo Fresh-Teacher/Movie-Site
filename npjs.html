@@ -55,10 +55,10 @@
             var speechSynthesis = window.speechSynthesis;
             var welcomeMessage = new SpeechSynthesisUtterance('You are most welcome!');
             var voices = speechSynthesis.getVoices();
-            var femaleVoice = voices.find(function (voice) {
-                return voice.name.includes('Female');
+            var maleVoice = voices.find(function (voice) {
+                return voice.name.includes('Male');
             });
-            welcomeMessage.voice = femaleVoice;
+            welcomeMessage.voice = maleVoice;
             speechSynthesis.speak(welcomeMessage);
         }
 
