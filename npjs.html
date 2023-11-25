@@ -6,6 +6,22 @@
     <title>Namungoona Parent's Junior School</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Custom CSS for rotating spiral -->
+    <style>
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .rotating-spiral {
+            width: 40px;
+            height: 40px;
+            border: 5px solid #3498db;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: rotate 1s linear infinite;
+        }
+    </style>
 </head>
 <body>
 
@@ -37,39 +53,56 @@
     <script>
         function playWelcomeSpeech() {
             var speechSynthesis = window.speechSynthesis;
-
-            // Create a new speech synthesis utterance
             var welcomeMessage = new SpeechSynthesisUtterance('You are most welcome!');
-
-            // Get all available voices
             var voices = speechSynthesis.getVoices();
-
-            // Find a female voice (customize as needed)
             var femaleVoice = voices.find(function (voice) {
                 return voice.name.includes('Female');
             });
-
-            // Set the voice to the found female voice
             welcomeMessage.voice = femaleVoice;
-
-            // Play the welcome message
             speechSynthesis.speak(welcomeMessage);
+        }
+
+        function showLoadingMessage() {
+            var loadingContainer = document.createElement('div');
+            loadingContainer.style.position = 'fixed';
+            loadingContainer.style.top = '50%';
+            loadingContainer.style.left = '50%';
+            loadingContainer.style.transform = 'translate(-50%, -50%)';
+            loadingContainer.style.display = 'flex';
+            loadingContainer.style.flexDirection = 'column';
+            loadingContainer.style.alignItems = 'center';
+            loadingContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            loadingContainer.style.padding = '20px';
+            loadingContainer.style.borderRadius = '10px';
+            
+            var rotatingSpiral = document.createElement('div');
+            rotatingSpiral.classList.add('rotating-spiral');
+
+            var loadingText = document.createElement('p');
+            loadingText.innerText = 'Logging in...';
+
+            loadingContainer.appendChild(rotatingSpiral);
+            loadingContainer.appendChild(loadingText);
+
+            document.body.appendChild(loadingContainer);
+
+            setTimeout(function () {
+                document.body.removeChild(loadingContainer);
+                playWelcomeSpeech();
+                window.location.href = 'homepage.html';
+            }, 2000); // Adjust the duration as needed
         }
 
         function validateForm() {
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
 
-            // Replace the following conditions with your validation logic
             if (email === 'user@namungoona.com' && password === 'npjs') {
-                alert('Login successful! Press Ok to continue...');
-                playWelcomeSpeech(); // Play the welcome speech
-                window.location.href = 'homepage.html'; // Redirect to the homepage
+                showLoadingMessage();
             } else {
                 alert('Incorrect email or password. Please try again.');
             }
 
-            // Prevent the form from submitting
             return false;
         }
     </script>
