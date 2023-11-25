@@ -51,16 +51,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script>
-        function playWelcomeSpeech() {
+function playWelcomeSpeech() {
             var speechSynthesis = window.speechSynthesis;
+
+            // Create a new speech synthesis utterance
             var welcomeMessage = new SpeechSynthesisUtterance('You are most welcome!');
-            var voices = speechSynthesis.getVoices();
-            var maleVoice = voices.find(function (voice) {
-                return voice.name.includes('Male');
-            });
-            welcomeMessage.voice = maleVoice;
+
+            // Set the voice (customize as needed)
+            welcomeMessage.voice = speechSynthesis.getVoices()[0];
+
+            // Play the welcome message
             speechSynthesis.speak(welcomeMessage);
         }
+
 
         function showLoadingMessage() {
             var loadingContainer = document.createElement('div');
@@ -97,7 +100,7 @@
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
 
-            if (email === 'user@namungoona.com' && password === 'npjs') {
+            if (email === 'npjs@namungoona.com' && password === 'npjs') {
                 showLoadingMessage();
             } else {
                 alert('Incorrect email or password. Please try again.');
