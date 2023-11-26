@@ -45,6 +45,38 @@
         cursor: pointer;
         color: #007bff;
     }
+
+     /* App download button style */
+     .download-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .arrow-animation {
+            width: 50px;
+            height: 15px;
+            border: 2px solid #007bff;
+            border-right: none;
+            border-top: none;
+            transform: rotate(-45deg);
+            animation: arrowBlink 1s infinite;
+        }
+
+        @keyframes arrowBlink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -52,6 +84,17 @@
     <div class="jumbotron text-center">
         <h1 class="display-5">Namungoona Parents' Junior School</h1>
     </div>
+
+        <!-- App download section -->
+        <div class="container">
+            <section class="section app-download">
+                <h2>Explore our App!</h2>
+                <p>Stay connected with Namungoona Parents' Junior School through our mobile app. Get instant updates, event notifications, and more!</p>
+                <div class="download-button">
+                    <a href="https://pwa-install-demo-netlify-app.vercel.app" class="btn btn-primary blink">
+                        <div class="arrow-animation"></div> <strong>Download NPJS App</strong>
+                    </a>
+                </div>
 
     <div class="container">
         <section class="section motto">
@@ -107,7 +150,7 @@
                 </span>
                 <span class="read-more-toggle" onclick="toggleReadMore('e-learning')"> Read more...</span>
             </p>
-            <p><a href="https://fresh-teacher.github.io" class="btn btn-primary blink"><strong> Resources</strong></a></p>
+            <p><a href="https://fresh-teacher.github.io" class="btn btn-warning blink"><strong> Resources</strong></a></p>
         </section>
         
         
